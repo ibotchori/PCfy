@@ -1,4 +1,5 @@
-import { GoBackIcon, Logo } from 'assets'
+import { GoBackIcon } from 'assets'
+import { MainLogo } from 'components'
 import React from 'react'
 
 const EmployeeInfo = () => {
@@ -25,9 +26,7 @@ const EmployeeInfo = () => {
       </div>
 
       {/* Redberry Logo */}
-      <div className=' m-auto py-10 hidden sm:block '>
-        <img src={Logo} alt='Logo' className='w-14' />
-      </div>
+      <MainLogo />
     </div>
   )
 }
