@@ -1,14 +1,12 @@
-import { GoBackIcon } from 'assets'
 import { MainLogo } from 'components'
+import GoBackButton from 'components/Buttons/GoBackButton'
 import React from 'react'
 
 const EmployeeInfo = () => {
   return (
     <div className='bg-gray-100 w-full h-screen flex flex-col justify-between'>
       {/* Go Back Button */}
-      <div className='pl-8 pt-5 hidden sm:block'>
-        <img src={GoBackIcon} alt='Go Back Button' className='w-10' />
-      </div>
+      <GoBackButton />
       {/* Title */}
       <div className='flex w-full justify-center gap-16 pb-5 font-semibold '>
         <div>
