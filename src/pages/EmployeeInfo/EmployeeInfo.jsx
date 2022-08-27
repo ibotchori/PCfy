@@ -1,5 +1,4 @@
-import { MainLogo } from 'components'
-import GoBackButton from 'components/Buttons/GoBackButton'
+import { GoBackButton, MainLogo, PageTitle } from 'components'
 import React from 'react'
 
 const EmployeeInfo = () => {
@@ -8,16 +7,7 @@ const EmployeeInfo = () => {
       {/* Go Back Button */}
       <GoBackButton />
       {/* Title */}
-      <div className='flex w-full justify-center gap-16 pb-5 font-semibold '>
-        <div>
-          <p className=''>თანამშრომლის ინფო</p>
-          <div className='w-[80%] bg-gray-600 h-[3px] m-auto mt-2'></div>
-        </div>
-        <div>
-          <p>ლეპტოპის მახასიათებლები</p>
-          <div className='w-[80%] bg-gray-600 h-[3px] m-auto mt-2'></div>
-        </div>
-      </div>
+      <PageTitle />
       {/* Main Content */}
       <div className='flex justify-center h-full'>
         <form className=' w-full sm:w-[60%]  bg-white rounded-xl '></form>
