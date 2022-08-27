@@ -5,6 +5,8 @@ module.exports = {
     extend: {
       colors: {
         mainButtonColor: '#62A1EB',
+        hoverButtonColor: '#317AD0',
+        focusButtonColor: '#1A5DAB',
       },
     },
   },
