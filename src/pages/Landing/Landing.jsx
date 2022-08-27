@@ -1,4 +1,5 @@
 import { LandingImage, LandingImageMob, Redberry } from 'assets'
+import { Button } from 'components'
 import React from 'react'
 
 const Landing = () => {
@@ -23,16 +24,8 @@ const Landing = () => {
       </div>
       {/* Buttons */}
       <div className='flex flex-col gap-3 sm:gap-6 pb-7 sm:pb-24'>
-        <button
-          className={`px-16 py-4 sm:py-3 bg-[#62A1EB]   rounded-lg  text-center  text-lg  tracking-widest text-white hover:text-gray-100`}
-        >
-          ჩანაწერის დამატება
-        </button>
-        <button
-          className={`px-16 py-4 sm:py-3 bg-[#62A1EB]   rounded-lg  text-center  text-lg  tracking-widest text-white hover:text-gray-100`}
-        >
-          ჩანაწერების სია
-        </button>
+        <Button text='ჩანაწერის დამატება' path='/employ-info' />
+        <Button text='ჩანაწერების სია' path='/laptop-list' />
       </div>
     </div>
   )
