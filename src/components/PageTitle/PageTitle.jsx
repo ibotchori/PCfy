@@ -1,9 +1,10 @@
 import { BackArrow } from 'assets'
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const PageTitle = () => {
   const location = useLocation()
+  const navigate = useNavigate()
   return (
     <>
       {/* Desktop */}
@@ -26,9 +27,10 @@ const PageTitle = () => {
       {/* Mobile */}
       <div className='m-auto py-3 sm:hidden block mt-3 '>
         <img
+          onClick={() => navigate(-1)}
           src={BackArrow}
           alt='Back Arrow'
-          className='absolute left-0 pt-[6px] pl-5'
+          className='absolute left-0 pt-[6px] pl-5 cursor-pointer'
         />
         <p className='font-semibold text-[1rem] '>
           {location.pathname === '/employ-info'
