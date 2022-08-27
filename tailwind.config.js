@@ -7,6 +7,7 @@ module.exports = {
         mainButtonColor: '#62A1EB',
         hoverButtonColor: '#317AD0',
         focusButtonColor: '#1A5DAB',
+        successBGColor: '#4A4A4A',
       },
     },
   },
