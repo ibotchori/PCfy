@@ -1,0 +1,6 @@
+export { default as Landing } from './Landing/Landing'
+export { default as EmployeeInfo } from './EmployeeInfo/EmployeeInfo'
+export { default as LaptopInfo } from './LaptopInfo/LaptopInfo'
+export { default as Successful } from './Successful/Successful'
+export { default as LaptopList } from './LaptopList/LaptopList'
+export { default as LaptopDetailedInfo } from './LaptopDetailedInfo/LaptopDetailedInfo'

@@ -1,6 +1,25 @@
+import {
+  EmployeeInfo,
+  Landing,
+  LaptopDetailedInfo,
+  LaptopInfo,
+  LaptopList,
+  Successful,
+} from 'pages'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
+
 function App() {
   return (
-    <h1 className='text-3xl font-bold underline text-red-600'>Home Page</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Landing />} />
+        <Route path='/employ-info' element={<EmployeeInfo />} />
+        <Route path='/laptop-info' element={<LaptopInfo />} />
+        <Route path='/successful' element={<Successful />} />
+        <Route path='/laptop-list' element={<LaptopList />} />
+        <Route path='/laptop-details' element={<LaptopDetailedInfo />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
