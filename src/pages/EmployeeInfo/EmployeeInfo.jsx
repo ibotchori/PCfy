@@ -36,7 +36,7 @@ const EmployeeInfo = () => {
           </div>
           {/* Footer */}
           <div className='w-full flex pr-3 lg:pr-0  pb-14 justify-end'>
-            <Button text='შემდეგი' path='/laptop-info' px={10} />
+            <Button text='შემდეგი' path='/laptop-info' px='px-10' />
           </div>
         </form>
       </div>

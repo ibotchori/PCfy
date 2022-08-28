@@ -16,10 +16,10 @@ const Successful = () => {
           </p>
         </div>
 
-        <Button text={'სიაში გადაყვანა'} path='/laptop-list' px={20} />
+        <Button text={'სიაში გადაყვანა'} path='/laptop-list' px='px-20' />
         <Link
           to='/'
-          className={`pb-3 pt-6 sm:pt-0 rounded-lg  text-center  text-lg  tracking-wide text-[#0089A7] hover:text-[#5ecae2] font-semibold`}
+          className={`pb-3 pt-6 sm:pt-0 rounded-lg  text-center  text-lg  tracking-wide text-mainButtonColor hover:text-hoverButtonColor  focus:text-focusButtonColor font-semibold`}
         >
           მთავარი
         </Link>

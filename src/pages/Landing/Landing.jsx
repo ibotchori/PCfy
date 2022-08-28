@@ -24,8 +24,8 @@ const Landing = () => {
       </div>
       {/* Buttons */}
       <div className='flex flex-col gap-3 sm:gap-6 pb-7 sm:pb-24'>
-        <Button text='ჩანაწერის დამატება' path='/employ-info' px={20} />
-        <Button text='ჩანაწერების სია' path='/laptop-list' px={20} />
+        <Button text='ჩანაწერის დამატება' path='/employ-info' px='px-20' />
+        <Button text='ჩანაწერების სია' path='/laptop-list' px='px-20' />
       </div>
     </div>
   )
