@@ -14,7 +14,7 @@ const EmployeeInfo = () => {
       {/* Go Back Button */}
       <GoBackButton path='/' />
       {/* Title */}
-      <PageTitle />
+      <PageTitle path='/' />
       {/* Main Content */}
       <div className='flex justify-center h-full'>
         <form className=' w-full sm:w-[60%]  bg-white rounded-xl  lg:px-28 pt-8 sm:pt-20 '>
