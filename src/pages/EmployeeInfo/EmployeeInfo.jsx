@@ -12,7 +12,7 @@ const EmployeeInfo = () => {
   return (
     <div className='bg-gray-100 w-full h-full flex flex-col justify-between'>
       {/* Go Back Button */}
-      <GoBackButton />
+      <GoBackButton path='/' />
       {/* Title */}
       <PageTitle />
       {/* Main Content */}
@@ -34,7 +34,7 @@ const EmployeeInfo = () => {
             <Input label='მეილი' />
             <Input label='ტელეფონის ნომერი' />
           </div>
-
+          {/* Footer */}
           <div className='w-full flex pr-3 lg:pr-0  pb-14 justify-end'>
             <Button text='შემდეგი' path='/laptop-info' px={10} />
           </div>
