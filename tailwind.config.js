@@ -8,6 +8,7 @@ module.exports = {
         hoverButtonColor: '#317AD0',
         focusButtonColor: '#1A5DAB',
         successBGColor: '#4A4A4A',
+        radioButtonColor: '#4D9AC3',
       },
     },
   },
