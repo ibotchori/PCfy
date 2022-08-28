@@ -8,15 +8,27 @@ import {
   Select,
 } from 'components'
 import { Link } from 'react-router-dom'
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { CameraIcon } from 'assets'
 
 const LaptopInfo = () => {
+  /* File Upload Functional */
+  const [image, setImage] = useState('')
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
+
+    setImage(acceptedFiles[0].name)
   }, [])
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    multiple: false,
+    accept: {
+      'image/jpeg': ['.jpeg', '.png'],
+    },
+  })
+
+  /* File Upload Functional END */
 
   return (
     <div className='bg-gray-100 w-full h-full flex flex-col justify-between'>
@@ -34,15 +46,17 @@ const LaptopInfo = () => {
               <div className='lg:px-0 px-5'>
                 <div
                   {...getRootProps()}
-                  className='mb-10 h-[16rem] sm:h-[27rem]  bg-gray-100 flex flex-col justify-evenly px-6 pt-5 pb-6 border-2 border-[#4386A9] border-dashed rounded-lg  '
+                  className={`mb-10 h-[16rem] sm:h-[27rem] ${
+                    isDragActive ? 'bg-gray-200' : 'bg-gray-100'
+                  }  flex flex-col justify-evenly px-6 pt-5 pb-6 border-2 border-[#4386A9] border-dashed rounded-lg  `}
                 >
                   <div className='w-full flex lg:hidden justify-center '>
                     <img src={CameraIcon} alt='' />
                   </div>
 
-                  {isDragActive ? (
+                  {image ? (
                     <p className='pt-0 lg:pt-16 text-xl font-semibold text-center w-60 mx-auto leading-relaxed text-[#4386A9] '>
-                      აქ ჩააგდე ფაილი
+                      ფაილი დამატებულია: <p className='truncate ...'>{image}</p>
                     </p>
                   ) : (
                     <p className='pt-0 lg:pt-16 text-xl font-semibold text-center w-60 mx-auto leading-relaxed text-[#4386A9] '>
@@ -59,19 +73,20 @@ const LaptopInfo = () => {
                         <input
                           {...getInputProps()}
                           id='file-upload'
-                          name='file-upload'
+                          name='laptop_image'
                           type='file'
                           className='sr-only'
                         />
                       </label>
                     </div>
                   </div>
+
                   <div className='w-full items-center lg:flex justify-center hidden py-6 '>
-                    <button
-                      className={`px-20 py-3 w-[250px]  bg-mainButtonColor hover:bg-hoverButtonColor  focus:bg-focusButtonColor  rounded-lg  text-center  text-lg  tracking-wide text-white  font-semibold`}
+                    <p
+                      className={`px-20 py-3 w-[250px] cursor-pointer bg-mainButtonColor hover:bg-hoverButtonColor  focus:bg-focusButtonColor  rounded-lg  text-center  text-lg  tracking-wide text-white  font-semibold`}
                     >
                       ატვირთე
-                    </button>
+                    </p>
                   </div>
                 </div>
               </div>
