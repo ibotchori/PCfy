@@ -1,6 +1,8 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
 import { GoBackButton } from 'components'
 import BackArrow from 'components/Buttons/BackArrow'
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { laptops } from './data'
 
 const LaptopList = () => {
@@ -31,7 +33,7 @@ const LaptopList = () => {
               >
                 <div className='w-full flex items-center justify-between p-[0.45rem] mr-12 space-x-3 sm:space-x-6'>
                   <img
-                    className='w-40 h-28 rounded-lg   bg-gray-300  flex-shrink-0'
+                    className='w-40 h-28 rounded-lg   bg-gray-300  flex-shrink-0 '
                     src={laptop.imageUrl}
                     alt='PC'
                   />
@@ -44,11 +46,12 @@ const LaptopList = () => {
                     <p className='mt-1 pb-4 text-gray-500 text-sm truncate'>
                       {laptop.title}
                     </p>
-                    <span
+                    <Link
+                      to={'/laptop-details'}
                       className={`cursor-pointer pb-3 pt-6 sm:pt-0 rounded-lg  text-center  text-xs  tracking-wide text-mainButtonColor hover:text-hoverButtonColor  focus:text-focusButtonColor font-semibold underline`}
                     >
                       {laptop.role}
-                    </span>
+                    </Link>
                   </div>
                 </div>
               </li>
