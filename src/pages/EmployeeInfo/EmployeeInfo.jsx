@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   Button,
   GoBackButton,
@@ -6,9 +7,27 @@ import {
   PageTitle,
   Select,
 } from 'components'
-import React from 'react'
+import { fetchPositions, fetchTeams } from 'features/employee/employeeSlice'
+import React, { useEffect } from 'react'
+
+/* Redux */
+import { useSelector, useDispatch } from 'react-redux'
+// actions
 
 const EmployeeInfo = () => {
+  const dispatch = useDispatch()
+  //  Global state (Redux)
+  const fetchedTeams = useSelector((state) => state.employeeInfo.fetchedTeams)
+  const fetchedPositions = useSelector(
+    (state) => state.employeeInfo.fetchedPositions
+  )
+
+  // fetch data
+  useEffect(() => {
+    dispatch(fetchTeams())
+    dispatch(fetchPositions())
+  }, [dispatch])
+
   return (
     <div className='bg-gray-100 w-full min-h-screen flex flex-col justify-between'>
       {/* Go Back Button */}
