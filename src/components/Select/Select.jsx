@@ -6,7 +6,7 @@ const Select = ({ label, id, name }) => {
       <select
         id={id}
         name={name}
-        className='bg-gray-200 text-gray-900 text-sm rounded-lg  focus:outline-none  font-bold  block w-full p-[11px] border '
+        className='bg-gray-200 text-gray-900  rounded-lg   focus:outline-none  font-bold  block w-full p-[11px] border '
       >
         <option selected>{label}</option>
         <option value='US'>დეველოპმენტი</option>

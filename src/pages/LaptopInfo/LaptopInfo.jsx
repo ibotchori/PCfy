@@ -38,7 +38,7 @@ const LaptopInfo = () => {
       <PageTitle path='/employ-info' />
       {/* Main Content */}
       <div className='flex justify-center h-full'>
-        <form className=' w-full sm:w-[60%]  bg-white rounded-xl  lg:px-28 pt-8 sm:pt-20 '>
+        <form className=' w-full sm:w-[60%]  bg-white rounded-xl  lg:px-28 pt-8 sm:pt-16 '>
           <div className='divide-y-[16px] sm:divide-y-2 sm:divide-gray-200 divide-gray-100'>
             {/* Divide 1 */}
             <div className=''>
