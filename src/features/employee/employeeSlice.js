@@ -43,10 +43,10 @@ export const employeeSlice = createSlice({
   name: 'employee',
   initialState,
   reducers: {
-    setFirstName: (state, action) => {
+    setName: (state, action) => {
       state.name = action.payload
     },
-    setLastName: (state, action) => {
+    setSurname: (state, action) => {
       state.surname = action.payload
     },
     setSelectedTeam: (state, action) => {
@@ -58,7 +58,7 @@ export const employeeSlice = createSlice({
     setEmail: (state, action) => {
       state.email = action.payload
     },
-    setPhone: (state, action) => {
+    setPhoneNumber: (state, action) => {
       state.phone_number = action.payload
     },
     resetEmployeeState: (state) => {},
@@ -83,9 +83,7 @@ export const employeeSlice = createSlice({
     },
     [fetchPositions.fulfilled]: (state, action) => {
       state.status = 'fulfilled'
-
       state.fetchedPositions = action.payload
-
       state.error = null
     },
     [fetchPositions.rejected]: (state, action) => {
@@ -97,12 +95,12 @@ export const employeeSlice = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  setFirstName,
-  setLastName,
+  setName,
+  setSurname,
   setSelectedTeam,
   setSelectedPosition,
   setEmail,
-  setPhone,
+  setPhoneNumber,
 } = employeeSlice.actions
 
 export default employeeSlice.reducer

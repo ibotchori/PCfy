@@ -19,8 +19,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   fetchPositions,
   fetchTeams,
+  setEmail,
+  setName,
+  setPhoneNumber,
   setSelectedPosition,
   setSelectedTeam,
+  setSurname,
 } from 'features/employee/employeeSlice'
 
 const EmployeeInfo = () => {
@@ -56,12 +60,20 @@ const EmployeeInfo = () => {
     handleSubmit,
     watch,
     reset,
-    formState: { errors },
-  } = useForm({ resolver: yupResolver(EmployeeSchema) })
+    formState: { errors, dirtyFields },
+  } = useForm({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(EmployeeSchema),
+  })
 
   useEffect(() => {
     dispatch(setSelectedTeam(watch('team')))
     dispatch(setSelectedPosition(watch('position')))
+    dispatch(setName(watch('name')))
+    dispatch(setSurname(watch('surname')))
+    dispatch(setEmail(watch('email')))
+    dispatch(setPhoneNumber(watch('phone_number')))
   }, [watch(), dispatch])
 
   const onSubmit = (data) => {
@@ -82,10 +94,24 @@ const EmployeeInfo = () => {
         >
           <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-10'>
             <div className='w-[21.875rem] sm:w-[25rem]'>
-              <Input label='სახელი' />
+              <Input
+                name='name'
+                label='სახელი'
+                register={register}
+                errorMessage={errors.name?.message}
+                dirtyFields={dirtyFields.name}
+                hint='მინიმუმ 2 სიმბოლო, ქართული ასოები'
+              />
             </div>
             <div className='w-[21.875rem] sm:w-[25rem]'>
-              <Input label='გვარი' />
+              <Input
+                name='surname'
+                label='გვარი'
+                register={register}
+                errorMessage={errors.surname?.message}
+                dirtyFields={dirtyFields.surname}
+                hint='მინიმუმ 2 სიმბოლო, ქართული ასოები'
+              />
             </div>
           </div>
           <div className='flex justify-between flex-col gap-4 w-[21.875rem] sm:w-[25rem] lg:w-full m-auto'>
@@ -106,12 +132,26 @@ const EmployeeInfo = () => {
             />
           </div>
           <div className=' w-[21.875rem] sm:w-[25rem] lg:w-full m-auto pt-0 lg:pt-5 pb-10 lg:pb-24 gap-3 sm:gap-8 flex flex-col '>
-            <Input label='მეილი' />
-            <Input label='ტელეფონის ნომერი' />
+            <Input
+              name='email'
+              label='მეილი'
+              register={register}
+              errorMessage={errors.email?.message}
+              dirtyFields={dirtyFields.email}
+              hint='უნდა მთავრდებოდეს @redberry.ge-ით'
+            />
+            <Input
+              name='phone_number'
+              label='ტელეფონის ნომერი'
+              register={register}
+              errorMessage={errors.phone_number?.message}
+              dirtyFields={dirtyFields.phone_number}
+              hint='უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
+            />
           </div>
           {/* Footer */}
           <div className='w-full flex pr-3 lg:pr-0  pb-14 justify-end'>
-            <Button text='შემდეგი' path='/laptop-info' px='px-10' />
+            <Button text='შემდეგი' px='px-10' path='' />
           </div>
         </form>
       </div>
