@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import React, { useEffect } from 'react'
 import {
   Button,
   GoBackButton,
@@ -7,26 +8,65 @@ import {
   PageTitle,
   Select,
 } from 'components'
-import { fetchPositions, fetchTeams } from 'features/employee/employeeSlice'
-import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { EmployeeSchema } from 'helpers/validationSchema/EmployeeSchema'
 
 /* Redux */
 import { useSelector, useDispatch } from 'react-redux'
 // actions
+import {
+  fetchPositions,
+  fetchTeams,
+  setSelectedPosition,
+  setSelectedTeam,
+} from 'features/employee/employeeSlice'
 
 const EmployeeInfo = () => {
   const dispatch = useDispatch()
-  //  Global state (Redux)
-  const fetchedTeams = useSelector((state) => state.employeeInfo.fetchedTeams)
-  const fetchedPositions = useSelector(
-    (state) => state.employeeInfo.fetchedPositions
-  )
+  const navigate = useNavigate()
 
   // fetch data
   useEffect(() => {
     dispatch(fetchTeams())
     dispatch(fetchPositions())
   }, [dispatch])
+
+  //  Global state (Redux)
+  const fetchedTeams = useSelector((state) => state.employeeInfo.fetchedTeams)
+  const selectedTeam = useSelector((state) => state.employeeInfo.selectedTeam)
+  const fetchedPositions = useSelector(
+    (state) => state.employeeInfo.fetchedPositions
+  )
+
+  /* Logic for select's options */
+  let selectedTeamObject = fetchedTeams.filter(
+    (item) => item.name === selectedTeam
+  )
+
+  let filteredPosition = fetchedPositions.filter(
+    (item) => item.team_id === selectedTeamObject[0]?.id
+  )
+  /* Logic for select's options END */
+
+  /* Use Form */
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(EmployeeSchema) })
+
+  useEffect(() => {
+    dispatch(setSelectedTeam(watch('team')))
+    dispatch(setSelectedPosition(watch('position')))
+  }, [watch(), dispatch])
+
+  const onSubmit = (data) => {
+    navigate('/laptop-info')
+  }
 
   return (
     <div className='bg-gray-100 w-full min-h-screen flex flex-col justify-between'>
@@ -36,7 +76,10 @@ const EmployeeInfo = () => {
       <PageTitle path='/' />
       {/* Main Content */}
       <div className='flex justify-center h-full'>
-        <form className=' w-full sm:w-[60%]   bg-white rounded-xl  lg:px-28 pt-8 sm:pt-16 '>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=' w-full sm:w-[60%]   bg-white rounded-xl  lg:px-28 pt-8 sm:pt-16 '
+        >
           <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-10'>
             <div className='w-[21.875rem] sm:w-[25rem]'>
               <Input label='სახელი' />
@@ -46,8 +89,21 @@ const EmployeeInfo = () => {
             </div>
           </div>
           <div className='flex justify-between flex-col gap-4 w-[21.875rem] sm:w-[25rem] lg:w-full m-auto'>
-            <Select label='თიმი' />
-            <Select label='პოზიცია' />
+            <Select
+              label='თიმი'
+              name='team'
+              options={fetchedTeams}
+              register={register}
+              error={errors.team?.message}
+            />
+            <Select
+              label='პოზიცია'
+              name='position'
+              disabled={!selectedTeam ? true : false}
+              options={filteredPosition}
+              register={register}
+              error={errors.position?.message}
+            />
           </div>
           <div className=' w-[21.875rem] sm:w-[25rem] lg:w-full m-auto pt-0 lg:pt-5 pb-10 lg:pb-24 gap-3 sm:gap-8 flex flex-col '>
             <Input label='მეილი' />

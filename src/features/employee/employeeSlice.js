@@ -36,25 +36,32 @@ const initialState = {
   selectedTeam: '',
   selectedPosition: '',
   email: '',
-  phone: '',
+  phone_number: '',
 }
 
 export const employeeSlice = createSlice({
   name: 'employee',
   initialState,
   reducers: {
-    addSkill: (state, action) => {
-      state.addedSkills.push({
-        id: action.payload.selectedSkillID,
-        experience: action.payload.expYear,
-        title: action.payload.selectedSkill,
-      })
+    setFirstName: (state, action) => {
+      state.name = action.payload
     },
-    removeSkill: (state, action) => {
-      state.addedSkills = state.skills.filter(
-        (skill) => skill.id !== action.payload.itemId
-      )
+    setLastName: (state, action) => {
+      state.surname = action.payload
     },
+    setSelectedTeam: (state, action) => {
+      state.selectedTeam = action.payload
+    },
+    setSelectedPosition: (state, action) => {
+      state.selectedPosition = action.payload
+    },
+    setEmail: (state, action) => {
+      state.email = action.payload
+    },
+    setPhone: (state, action) => {
+      state.phone_number = action.payload
+    },
+    resetEmployeeState: (state) => {},
   },
   extraReducers: {
     [fetchTeams.pending]: (state) => {
@@ -76,7 +83,9 @@ export const employeeSlice = createSlice({
     },
     [fetchPositions.fulfilled]: (state, action) => {
       state.status = 'fulfilled'
+
       state.fetchedPositions = action.payload
+
       state.error = null
     },
     [fetchPositions.rejected]: (state, action) => {
@@ -87,6 +96,13 @@ export const employeeSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { addSkill, removeSkill } = employeeSlice.actions
+export const {
+  setFirstName,
+  setLastName,
+  setSelectedTeam,
+  setSelectedPosition,
+  setEmail,
+  setPhone,
+} = employeeSlice.actions
 
 export default employeeSlice.reducer

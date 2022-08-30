@@ -1,19 +1,25 @@
 import React from 'react'
 
-const Select = ({ label, id, name }) => {
+const Select = ({ label, id, options, register, name, disabled, error }) => {
   return (
     <div className='mb-6'>
       <select
+        disabled={disabled}
+        {...register(name)}
         id={id}
         name={name}
-        className='bg-gray-200 text-gray-900  rounded-lg   focus:outline-none  font-bold  block w-full p-[11px] border '
+        className={`${
+          error ? 'border-red-500 ' : ''
+        }bg-gray-200 text-gray-900 border rounded-lg    focus:outline-none  font-bold  block w-full p-[11px] `}
       >
-        <option selected>{label}</option>
-        <option value='US'>დეველოპმენტი</option>
-        <option value='CA'>HR</option>
-        <option value='FR'>გაყიდვები</option>
-        <option value='DE'>დიზაინი</option>
-        <option value='DE'>მარკეტინგი</option>
+        <option value=''>{label}</option>
+        {options?.map((item) => {
+          return (
+            <option key={item.id} value={item.name}>
+              {item.name}
+            </option>
+          )
+        })}
       </select>
       {/*      <div className='h-[0.1px] flex text-[10px] sm:text-xs '>
         <p className='pt-[6px] pl-1 text-gay-600'>
