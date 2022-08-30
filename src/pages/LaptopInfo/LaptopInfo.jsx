@@ -1,11 +1,11 @@
 import {
-  Button,
   GoBackButton,
   Input,
   MainLogo,
   PageTitle,
   RadioButton,
   Select,
+  SubmitButton,
 } from 'components'
 import { Link } from 'react-router-dom'
 import React, { useCallback, useState } from 'react'
@@ -156,7 +156,7 @@ const LaptopInfo = () => {
               უკან
             </Link>
             <div className=' pr-3 lg:pr-0   '>
-              <Button text='დამახსოვრება' path='/laptop-info' px='px-10' />
+              <SubmitButton text='დამახსოვრება' px='px-10' />
             </div>
           </div>
         </form>

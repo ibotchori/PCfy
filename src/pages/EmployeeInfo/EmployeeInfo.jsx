@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react'
 import {
-  Button,
   GoBackButton,
   Input,
   MainLogo,
   PageTitle,
   Select,
+  SubmitButton,
 } from 'components'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -151,7 +151,7 @@ const EmployeeInfo = () => {
           </div>
           {/* Footer */}
           <div className='w-full flex pr-3 lg:pr-0  pb-14 justify-end'>
-            <Button text='შემდეგი' px='px-10' path='' />
+            <SubmitButton text='შემდეგი' px='px-10' />
           </div>
         </form>
       </div>

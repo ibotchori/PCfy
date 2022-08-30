@@ -1,5 +1,5 @@
 import { SuccessImage } from 'assets'
-import { Button } from 'components'
+import { LinkButton } from 'components'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -16,7 +16,7 @@ const Successful = () => {
           </p>
         </div>
 
-        <Button text={'სიაში გადაყვანა'} path='/laptop-list' px='px-20' />
+        <LinkButton text={'სიაში გადაყვანა'} path='/laptop-list' px='px-20' />
         <Link
           to='/'
           className={`pb-3 pt-6 sm:pt-0 rounded-lg  text-center  text-lg  tracking-wide text-mainButtonColor hover:text-hoverButtonColor  focus:text-focusButtonColor font-semibold`}

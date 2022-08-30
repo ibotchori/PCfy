@@ -1,4 +1,5 @@
-export { default as Button } from './Buttons/Button'
+export { default as SubmitButton } from './Buttons/SubmitButton'
+export { default as LinkButton } from './Buttons/LinkButton'
 export { default as GoBackButton } from './Buttons/GoBackButton'
 export { default as BackArrow } from './Buttons/BackArrow'
 export { default as MainLogo } from './MainLogo/MainLogo'

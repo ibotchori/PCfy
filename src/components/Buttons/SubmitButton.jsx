@@ -1,10 +1,9 @@
 import React from 'react'
 
-const Button = ({ text, path, px }) => {
+const Button = ({ text, px }) => {
   return (
     <button
       type='submit'
-      to={path}
       className={`${px} py-3  bg-mainButtonColor hover:bg-hoverButtonColor  focus:bg-focusButtonColor  rounded-lg  text-center  text-lg  tracking-wide text-white  font-semibold`}
     >
       {text}
