@@ -39,18 +39,24 @@ const EmployeeInfo = () => {
 
   //  Global state (Redux)
   const fetchedTeams = useSelector((state) => state.employeeInfo.fetchedTeams)
-  const selectedTeam = useSelector((state) => state.employeeInfo.selectedTeam)
+
   const fetchedPositions = useSelector(
     (state) => state.employeeInfo.fetchedPositions
+  )
+  const selectedTeam = useSelector((state) => state.employeeInfo.selectedTeam)
+  const selectedPosition = useSelector(
+    (state) => state.employeeInfo.selectedPosition
   )
 
   /* Logic for select's options */
   let selectedTeamObject = fetchedTeams.filter(
     (item) => item.name === selectedTeam
   )
-
-  let filteredPosition = fetchedPositions.filter(
+  let filteredPositions = fetchedPositions.filter(
     (item) => item.team_id === selectedTeamObject[0]?.id
+  )
+  let selectedPositionObject = filteredPositions.filter(
+    (item) => item.name === selectedPosition
   )
   /* Logic for select's options END */
 
@@ -77,6 +83,10 @@ const EmployeeInfo = () => {
   }, [watch(), dispatch])
 
   const onSubmit = (data) => {
+    // save entire objects on submit
+    dispatch(setSelectedTeam(selectedTeamObject))
+    dispatch(setSelectedPosition(selectedPositionObject))
+
     navigate('/laptop-info')
   }
 
@@ -126,7 +136,7 @@ const EmployeeInfo = () => {
               label='პოზიცია'
               name='position'
               disabled={!selectedTeam ? true : false}
-              options={filteredPosition}
+              options={filteredPositions}
               register={register}
               error={errors.position?.message}
             />
