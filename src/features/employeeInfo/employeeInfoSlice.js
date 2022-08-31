@@ -1,8 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import employeeService from './employeeService'
+import employeeService from './employeeInfoService'
 
 export const fetchTeams = createAsyncThunk(
-  'employee/fetchTeams', // <-- action name
+  'employeeInfo/fetchTeams', // <-- action name
   async function (_, { rejectWithValue }) {
     try {
       // API call from employeeService file
@@ -14,7 +14,7 @@ export const fetchTeams = createAsyncThunk(
   }
 )
 export const fetchPositions = createAsyncThunk(
-  'employee/fetchPositions', // <-- action name
+  'employeeInfo/fetchPositions', // <-- action name
   async function (_, { rejectWithValue }) {
     try {
       // API call from employeeService file
@@ -39,8 +39,8 @@ const initialState = {
   phone_number: '',
 }
 
-export const employeeSlice = createSlice({
-  name: 'employee',
+export const employeeInfoSlice = createSlice({
+  name: 'employeeInfo',
   initialState,
   reducers: {
     setName: (state, action) => {
@@ -61,7 +61,7 @@ export const employeeSlice = createSlice({
     setPhoneNumber: (state, action) => {
       state.phone_number = action.payload
     },
-    resetEmployeeState: (state) => {},
+    resetEmployeeInfoState: (state) => {},
   },
   extraReducers: {
     [fetchTeams.pending]: (state) => {
@@ -101,6 +101,6 @@ export const {
   setSelectedPosition,
   setEmail,
   setPhoneNumber,
-} = employeeSlice.actions
+} = employeeInfoSlice.actions
 
-export default employeeSlice.reducer
+export default employeeInfoSlice.reducer

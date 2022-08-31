@@ -13,9 +13,9 @@ const fetchPositions = async () => {
   return results.data.data
 }
 
-const employeeService = {
+const employeeInfoService = {
   fetchTeams,
   fetchPositions,
 }
 
-export default employeeService
+export default employeeInfoService

@@ -26,7 +26,7 @@ import {
   setSelectedPosition,
   setSelectedTeam,
   setSurname,
-} from 'features/employee/employeeSlice'
+} from 'features/employeeInfo/employeeInfoSlice'
 
 const EmployeeInfo = () => {
   const dispatch = useDispatch()
