@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { EmployeeSchema } from 'helpers/validationSchema/EmployeeSchema'
+import useFormPersist from 'react-hook-form-persist'
 
 /* Redux */
 import { useSelector, useDispatch } from 'react-redux'
@@ -66,11 +67,18 @@ const EmployeeInfo = () => {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors, dirtyFields },
   } = useForm({
     mode: 'onChange',
     reValidateMode: 'onChange',
     resolver: yupResolver(EmployeeSchema),
+  })
+  useFormPersist('storageKey', {
+    watch,
+    setValue,
+    storage: window.localStorage, // default window.sessionStorage
+    exclude: ['baz'],
   })
 
   useEffect(() => {
@@ -128,6 +136,7 @@ const EmployeeInfo = () => {
             <Select
               label='თიმი'
               name='team'
+              value={selectedTeam}
               options={fetchedTeams}
               register={register}
               error={errors.team?.message}
@@ -135,6 +144,7 @@ const EmployeeInfo = () => {
             <Select
               label='პოზიცია'
               name='position'
+              value={selectedPosition}
               disabled={!selectedTeam ? true : false}
               options={filteredPositions}
               register={register}

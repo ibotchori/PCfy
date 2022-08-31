@@ -1,9 +1,19 @@
 import React from 'react'
 
-const Select = ({ label, id, options, register, name, disabled, error }) => {
+const Select = ({
+  label,
+  id,
+  options,
+  register,
+  name,
+  disabled,
+  error,
+  value,
+}) => {
   return (
     <div className='mb-6'>
       <select
+        value={value}
         disabled={disabled}
         {...register(name)}
         id={id}
