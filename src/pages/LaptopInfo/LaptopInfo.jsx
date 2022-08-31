@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   GoBackButton,
   Input,
@@ -7,12 +8,36 @@ import {
   Select,
   SubmitButton,
 } from 'components'
-import { Link } from 'react-router-dom'
-import React, { useCallback, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { CameraIcon } from 'assets'
+/* Redux */
+import { useSelector, useDispatch } from 'react-redux'
+// actions
+import {
+  fetchBrands,
+  fetchCPUs,
+  setLaptopName,
+} from 'features/laptopInfo/laptopInfoSlice'
+import { useForm } from 'react-hook-form'
+import useFormPersist from 'react-hook-form-persist'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { LaptopInfoSchema } from 'helpers/validationSchema/LaptopInfoSchema'
 
 const LaptopInfo = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  // fetch data
+  useEffect(() => {
+    dispatch(fetchBrands())
+    dispatch(fetchCPUs())
+  }, [dispatch])
+
+  //  Global state (Redux)
+  const fetchedBrands = useSelector((state) => state.laptopInfo.fetchedBrands)
+
   /* File Upload Functional */
   const [image, setImage] = useState('')
   const onDrop = useCallback((acceptedFiles) => {
@@ -30,6 +55,34 @@ const LaptopInfo = () => {
 
   /* File Upload Functional END */
 
+  /* Use Form */
+  const {
+    register,
+    handleSubmit,
+    watch,
+    reset,
+    setValue,
+    formState: { errors, dirtyFields },
+  } = useForm({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
+    resolver: yupResolver(LaptopInfoSchema),
+  })
+  useFormPersist('storageKey', {
+    watch,
+    setValue,
+    storage: window.localStorage, // default window.sessionStorage
+    exclude: ['baz'],
+  })
+
+  useEffect(() => {
+    dispatch(setLaptopName(watch('laptop_name')))
+  }, [watch(), dispatch])
+
+  const onSubmit = (data) => {
+    navigate('/successful')
+  }
+
   return (
     <div className='bg-gray-100 w-full h-full flex flex-col justify-between'>
       {/* Go Back Button */}
@@ -38,7 +91,10 @@ const LaptopInfo = () => {
       <PageTitle path='/employ-info' />
       {/* Main Content */}
       <div className='flex justify-center h-full'>
-        <form className=' w-full sm:w-[60%]  bg-white rounded-xl  lg:px-28 pt-8 sm:pt-16 '>
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className=' w-full sm:w-[60%]  bg-white rounded-xl  lg:px-28 pt-8 sm:pt-16 '
+        >
           <div className='divide-y-[16px] sm:divide-y-2 sm:divide-gray-200 divide-gray-100'>
             {/* Divide 1 */}
             <div className=''>
@@ -93,17 +149,30 @@ const LaptopInfo = () => {
 
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-10'>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
-                  <Input label='ლეპტოპის სახელი' />
+                  <Input
+                    name='laptop_name '
+                    label='ლეპტოპის სახელი'
+                    register={register}
+                    errorMessage={errors.laptop_name?.message}
+                    dirtyFields={dirtyFields.laptop_name}
+                    hint='ლათინური ასოები, ციფრები, !@#$%^&*()_+='
+                  />
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem] pt-8'>
-                  <Select label='ლეპტოპის ბრენდი' />
+                  <Select
+                    label='ლეპტოპის ბრენდი'
+                    name='laptop_brand_id '
+                    options={fetchedBrands}
+                    register={register}
+                    error={errors.laptop_brand_id?.message}
+                  />
                 </div>
               </div>
             </div>
             {/* Divide 2 */}
             <div className='pt-3 lg:pt-10 pb-0 sm:pb-2'>
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-10'>
-                <div className='w-[21.875rem] sm:w-[25rem] pt-8'>
+                {/* <div className='w-[21.875rem] sm:w-[25rem] pt-8'>
                   <Select label='CPU' />
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
@@ -111,10 +180,10 @@ const LaptopInfo = () => {
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
                   <Input label='CPU-ს ნაკადი' />
-                </div>
+                </div> */}
               </div>
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-10'>
-                <div className='w-[21.875rem] sm:w-[25rem]'>
+                {/*  <div className='w-[21.875rem] sm:w-[25rem]'>
                   <Input label='ლეპტოპის RAM (GB)' />
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
@@ -123,13 +192,13 @@ const LaptopInfo = () => {
                     value1='SSD'
                     value2='HDD'
                   />
-                </div>
+                </div> */}
               </div>
             </div>
             {/* Divide 3*/}
             <div className='pt-10 pb-5'>
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-14'>
-                <div className='w-[21.875rem] sm:w-[25rem]'>
+                {/*    <div className='w-[21.875rem] sm:w-[25rem]'>
                   <Input label='შეძენის რიცხვი (არჩევითი)' />
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
@@ -143,7 +212,7 @@ const LaptopInfo = () => {
                     value1='ახალი'
                     value2='მეორადი'
                   />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

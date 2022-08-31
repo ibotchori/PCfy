@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import employeeReducer from 'features/employee/employeeSlice'
+import { employeeInfoReducer, laptopInfoReducer } from 'features'
 
 export const store = configureStore({
   reducer: {
-    employeeInfo: employeeReducer,
+    employeeInfo: employeeInfoReducer,
+    laptopInfo: laptopInfoReducer,
   },
 })
