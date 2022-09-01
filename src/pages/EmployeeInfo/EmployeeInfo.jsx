@@ -23,9 +23,11 @@ import {
   setEmail,
   setName,
   setPhoneNumber,
+  setPositionID,
   setSelectedPosition,
   setSelectedTeam,
   setSurname,
+  setTeamID,
 } from 'features/employeeInfo/employeeInfoSlice'
 
 const EmployeeInfo = () => {
@@ -91,10 +93,8 @@ const EmployeeInfo = () => {
   }, [watch(), dispatch])
 
   const onSubmit = (data) => {
-    // save entire objects on submit
-    dispatch(setSelectedTeam(selectedTeamObject))
-    dispatch(setSelectedPosition(selectedPositionObject))
-
+    dispatch(setTeamID(selectedTeamObject[0].id))
+    dispatch(setPositionID(selectedPositionObject[0].id))
     navigate('/laptop-info')
   }
 

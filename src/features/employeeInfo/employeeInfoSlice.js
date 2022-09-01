@@ -35,6 +35,8 @@ const initialState = {
   surname: '',
   selectedTeam: '',
   selectedPosition: '',
+  team_id: '',
+  position_id: '',
   email: '',
   phone_number: '',
 }
@@ -52,8 +54,14 @@ export const employeeInfoSlice = createSlice({
     setSelectedTeam: (state, action) => {
       state.selectedTeam = action.payload
     },
+    setTeamID: (state, action) => {
+      state.team_id = action.payload
+    },
     setSelectedPosition: (state, action) => {
       state.selectedPosition = action.payload
+    },
+    setPositionID: (state, action) => {
+      state.position_id = action.payload
     },
     setEmail: (state, action) => {
       state.email = action.payload
@@ -98,7 +106,9 @@ export const {
   setName,
   setSurname,
   setSelectedTeam,
+  setTeamID,
   setSelectedPosition,
+  setPositionID,
   setEmail,
   setPhoneNumber,
 } = employeeInfoSlice.actions
