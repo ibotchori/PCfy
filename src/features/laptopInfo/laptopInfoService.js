@@ -13,9 +13,20 @@ const fetchCPUs = async () => {
   return results.data.data
 }
 
+const submitData = async (dataForSubmit) => {
+  const results = await axios({
+    method: 'POST',
+    url: `${baseURL}/laptop/create`,
+    data: dataForSubmit,
+  })
+
+  return results.status
+}
+
 const laptopInfoService = {
   fetchBrands,
   fetchCPUs,
+  submitData,
 }
 
 export default laptopInfoService

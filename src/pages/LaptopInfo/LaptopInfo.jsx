@@ -23,12 +23,14 @@ import {
   setLaptopCPUCores,
   setLaptopCPUThreads,
   setLaptopHardDriveType,
+  setLaptopImage,
   setLaptopName,
   setLaptopPrice,
   setLaptopPurchaseDate,
   setLaptopRam,
   setLaptopState,
   setSelectedLaptopBrand,
+  submitData,
 } from 'features/laptopInfo/laptopInfoSlice'
 import { useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
@@ -53,15 +55,27 @@ const LaptopInfo = () => {
     laptop_cpu,
     laptop_hard_drive_type,
     laptop_state,
+    laptop_name,
+    laptop_image,
+    laptop_brand_id,
+    laptop_purchase_date,
+    laptop_cpu_cores,
+    laptop_cpu_threads,
+    laptop_ram,
+    laptop_price,
   } = useSelector((state) => state.laptopInfo)
+  const { name, surname, team_id, position_id, email, phone_number } =
+    useSelector((state) => state.employeeInfo)
 
   /* File Upload Functional */
-  const [image, setImage] = useState('')
-  const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      // Do something with the files
 
-    setImage(acceptedFiles[0].name)
-  }, [])
+      dispatch(setLaptopImage(acceptedFiles[0]))
+    },
+    [dispatch]
+  )
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: false,
@@ -69,16 +83,7 @@ const LaptopInfo = () => {
       'image/jpeg': ['.jpeg', '.png'],
     },
   })
-
   /* File Upload Functional END */
-
-  let selectedLaptopBrandObject = fetchedBrands.filter(
-    (item) => item.name === selectedLaptopBrand
-  )
-  console.log(
-    '🚀 ~ LaptopInfo ~ selectedLaptopBrandObject',
-    selectedLaptopBrandObject
-  )
 
   /* Use Form */
   const {
@@ -101,6 +106,10 @@ const LaptopInfo = () => {
     exclude: ['baz'],
   })
 
+  let selectedLaptopBrandObject = fetchedBrands.filter(
+    (item) => item.name === selectedLaptopBrand
+  )
+
   useEffect(() => {
     dispatch(setLaptopName(watch('laptop_name')))
     dispatch(setSelectedLaptopBrand(watch('laptop_brand')))
@@ -112,10 +121,34 @@ const LaptopInfo = () => {
     dispatch(setLaptopPurchaseDate(watch('laptop_purchase_date')))
     dispatch(setLaptopHardDriveType(watch('laptop_hard_drive_type')))
     dispatch(setLaptopState(watch('laptop_state')))
+
+    dispatch(setLaptopBrandId(selectedLaptopBrandObject[0]?.id))
   }, [watch(), dispatch])
 
+  // prepare data for submit
+  const formData = new FormData()
+
+  formData.append('name', name)
+  formData.append('surname', surname)
+  formData.append('team_id', team_id)
+  formData.append('position_id', position_id)
+  formData.append('email', email)
+  formData.append('phone_number', phone_number)
+  formData.append('laptop_name', laptop_name)
+  formData.append('laptop_image', laptop_image)
+  formData.append('laptop_brand_id', laptop_brand_id)
+  formData.append('laptop_cpu', laptop_cpu)
+  formData.append('laptop_cpu_cores', laptop_cpu_cores)
+  formData.append('laptop_cpu_threads', laptop_cpu_threads)
+  formData.append('laptop_ram', laptop_ram)
+  formData.append('laptop_hard_drive_type', laptop_hard_drive_type)
+  formData.append('laptop_state', laptop_state)
+  formData.append('laptop_purchase_date', laptop_purchase_date)
+  formData.append('laptop_price', laptop_price)
+  formData.append('token', '5e58375285e927fe3f2ae52b4b607811')
+
   const onSubmit = (data) => {
-    dispatch(setLaptopBrandId(selectedLaptopBrandObject[0].id))
+    dispatch(submitData(formData))
     navigate('/successful')
   }
 
@@ -128,6 +161,7 @@ const LaptopInfo = () => {
       {/* Main Content */}
       <div className='flex justify-center h-full'>
         <form
+          encType='multipart/form-data'
           onSubmit={handleSubmit(onSubmit)}
           className=' w-full sm:w-[60%]  bg-white rounded-xl  lg:px-28 pt-8 sm:pt-16 '
         >
@@ -146,9 +180,10 @@ const LaptopInfo = () => {
                     <img src={CameraIcon} alt='' />
                   </div>
 
-                  {image ? (
+                  {laptop_image.name ? (
                     <p className='pt-0 lg:pt-16 text-xl font-semibold text-center w-60 mx-auto leading-relaxed text-[#4386A9] '>
-                      ფაილი დამატებულია: <p className='truncate ...'>{image}</p>
+                      ფაილი დამატებულია:{' '}
+                      <p className='truncate ...'>{laptop_image.name}</p>
                     </p>
                   ) : (
                     <p className='pt-0 lg:pt-16 text-xl font-semibold text-center w-60 mx-auto leading-relaxed text-[#4386A9] '>

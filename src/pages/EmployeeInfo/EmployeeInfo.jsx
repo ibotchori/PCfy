@@ -90,11 +90,11 @@ const EmployeeInfo = () => {
     dispatch(setSurname(watch('surname')))
     dispatch(setEmail(watch('email')))
     dispatch(setPhoneNumber(watch('phone_number')))
+    dispatch(setTeamID(selectedTeamObject[0]?.id))
+    dispatch(setPositionID(selectedPositionObject[0]?.id))
   }, [watch(), dispatch])
 
   const onSubmit = (data) => {
-    dispatch(setTeamID(selectedTeamObject[0].id))
-    dispatch(setPositionID(selectedPositionObject[0].id))
     navigate('/laptop-info')
   }
 
@@ -107,6 +107,7 @@ const EmployeeInfo = () => {
       {/* Main Content */}
       <div className='flex justify-center h-full'>
         <form
+          encType='multipart/form-data'
           onSubmit={handleSubmit(onSubmit)}
           className=' w-full sm:w-[60%]   bg-white rounded-xl  lg:px-28 pt-8 sm:pt-16 '
         >
