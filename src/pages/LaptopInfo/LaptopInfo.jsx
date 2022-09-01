@@ -18,7 +18,17 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   fetchBrands,
   fetchCPUs,
+  setLaptopBrandId,
+  setLaptopCPU,
+  setLaptopCPUCores,
+  setLaptopCPUThreads,
+  setLaptopHardDriveType,
   setLaptopName,
+  setLaptopPrice,
+  setLaptopPurchaseDate,
+  setLaptopRam,
+  setLaptopState,
+  setSelectedLaptopBrand,
 } from 'features/laptopInfo/laptopInfoSlice'
 import { useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
@@ -36,7 +46,14 @@ const LaptopInfo = () => {
   }, [dispatch])
 
   //  Global state (Redux)
-  const fetchedBrands = useSelector((state) => state.laptopInfo.fetchedBrands)
+  const {
+    fetchedBrands,
+    fetchedCPUs,
+    selectedLaptopBrand,
+    laptop_cpu,
+    laptop_hard_drive_type,
+    laptop_state,
+  } = useSelector((state) => state.laptopInfo)
 
   /* File Upload Functional */
   const [image, setImage] = useState('')
@@ -55,6 +72,14 @@ const LaptopInfo = () => {
 
   /* File Upload Functional END */
 
+  let selectedLaptopBrandObject = fetchedBrands.filter(
+    (item) => item.name === selectedLaptopBrand
+  )
+  console.log(
+    '🚀 ~ LaptopInfo ~ selectedLaptopBrandObject',
+    selectedLaptopBrandObject
+  )
+
   /* Use Form */
   const {
     register,
@@ -68,6 +93,7 @@ const LaptopInfo = () => {
     reValidateMode: 'onChange',
     resolver: yupResolver(LaptopInfoSchema),
   })
+
   useFormPersist('storageKey', {
     watch,
     setValue,
@@ -77,9 +103,19 @@ const LaptopInfo = () => {
 
   useEffect(() => {
     dispatch(setLaptopName(watch('laptop_name')))
+    dispatch(setSelectedLaptopBrand(watch('laptop_brand')))
+    dispatch(setLaptopCPU(watch('laptop_cpu')))
+    dispatch(setLaptopCPUCores(watch('laptop_cpu_cores')))
+    dispatch(setLaptopCPUThreads(watch('laptop_cpu_threads')))
+    dispatch(setLaptopRam(watch('laptop_ram')))
+    dispatch(setLaptopPrice(watch('laptop_price')))
+    dispatch(setLaptopPurchaseDate(watch('laptop_purchase_date')))
+    dispatch(setLaptopHardDriveType(watch('laptop_hard_drive_type')))
+    dispatch(setLaptopState(watch('laptop_state')))
   }, [watch(), dispatch])
 
   const onSubmit = (data) => {
+    dispatch(setLaptopBrandId(selectedLaptopBrandObject[0].id))
     navigate('/successful')
   }
 
@@ -150,7 +186,7 @@ const LaptopInfo = () => {
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-10'>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
                   <Input
-                    name='laptop_name '
+                    name='laptop_name'
                     label='ლეპტოპის სახელი'
                     register={register}
                     errorMessage={errors.laptop_name?.message}
@@ -161,10 +197,11 @@ const LaptopInfo = () => {
                 <div className='w-[21.875rem] sm:w-[25rem] pt-8'>
                   <Select
                     label='ლეპტოპის ბრენდი'
-                    name='laptop_brand_id '
+                    name='laptop_brand'
+                    value={selectedLaptopBrand}
                     options={fetchedBrands}
                     register={register}
-                    error={errors.laptop_brand_id?.message}
+                    error={errors.laptop_brand?.message}
                   />
                 </div>
               </div>
@@ -172,47 +209,109 @@ const LaptopInfo = () => {
             {/* Divide 2 */}
             <div className='pt-3 lg:pt-10 pb-0 sm:pb-2'>
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-10'>
-                {/* <div className='w-[21.875rem] sm:w-[25rem] pt-8'>
-                  <Select label='CPU' />
+                <div className='w-[21.875rem] sm:w-[25rem] pt-8'>
+                  <Select
+                    label='CPU'
+                    name='laptop_cpu'
+                    value={laptop_cpu}
+                    options={fetchedCPUs}
+                    register={register}
+                    error={errors.laptop_cpu?.message}
+                  />
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
-                  <Input label='CPU-ს ბირთვი' />
+                  <Input
+                    type={'number'}
+                    name='laptop_cpu_cores'
+                    label='CPU-ს ბირთვი'
+                    register={register}
+                    errorMessage={errors.laptop_cpu_cores?.message}
+                    dirtyFields={dirtyFields.laptop_cpu_cores}
+                    hint='მხოლოდ ციფრები.'
+                  />
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
-                  <Input label='CPU-ს ნაკადი' />
-                </div> */}
+                  <Input
+                    label='CPU-ს ნაკადი'
+                    type={'number'}
+                    name='laptop_cpu_threads'
+                    register={register}
+                    errorMessage={errors.laptop_cpu_threads?.message}
+                    dirtyFields={dirtyFields.laptop_cpu_threads}
+                    hint='მხოლოდ ციფრები.'
+                  />
+                </div>
               </div>
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-10'>
-                {/*  <div className='w-[21.875rem] sm:w-[25rem]'>
-                  <Input label='ლეპტოპის RAM (GB)' />
+                <div className='w-[21.875rem] sm:w-[25rem]'>
+                  <Input
+                    label='ლეპტოპის RAM (GB)'
+                    type={'number'}
+                    name='laptop_ram'
+                    register={register}
+                    errorMessage={errors.laptop_ram?.message}
+                    dirtyFields={dirtyFields.laptop_ram}
+                    hint='მხოლოდ ციფრები.'
+                  />
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
                   <RadioButton
-                    label='მეხსიერების ტიპი'
+                    title='მეხსიერების ტიპი'
+                    name='laptop_hard_drive_type'
+                    label1='SSD'
+                    label2='HDD'
                     value1='SSD'
                     value2='HDD'
+                    register={register}
+                    errorMessage={errors.laptop_hard_drive_type?.message}
+                    dirtyFields={dirtyFields.laptop_hard_drive_type}
+                    checked1={laptop_hard_drive_type === 'SSD'}
+                    checked2={laptop_hard_drive_type === 'HDD'}
                   />
-                </div> */}
+                </div>
               </div>
             </div>
             {/* Divide 3*/}
             <div className='pt-10 pb-5'>
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-14'>
-                {/*    <div className='w-[21.875rem] sm:w-[25rem]'>
-                  <Input label='შეძენის რიცხვი (არჩევითი)' />
+                <div className='w-[21.875rem] sm:w-[25rem]'>
+                  <Input
+                    label='შეძენის რიცხვი (არჩევითი)'
+                    type={'date'}
+                    name='laptop_purchase_date'
+                    register={register}
+                    placeholder='დდ/თთ/წწწწ'
+                  />
                 </div>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
-                  <Input label='ლეპტოპის ფასი' />
+                  <Input
+                    label='ლეპტოპის ფასი'
+                    type={'number'}
+                    name='laptop_price'
+                    register={register}
+                    errorMessage={errors.laptop_price?.message}
+                    dirtyFields={dirtyFields.laptop_price}
+                    placeholderIcon={true}
+                    hint='მხოლოდ ციფრები.'
+                  />
                 </div>
               </div>
               <div className='flex flex-col lg:flex-row sm:justify-between gap-3 items-center pb-5 lg:pb-14'>
                 <div className='w-[21.875rem] sm:w-[25rem]'>
                   <RadioButton
-                    label='ლეპტოპის მდგომარეობა'
-                    value1='ახალი'
-                    value2='მეორადი'
+                    title='ლეპტოპის მდგომარეობა'
+                    label1='ახალი'
+                    label2='მეორადი'
+                    value1='new'
+                    value2='used'
+                    name='laptop_state'
+                    register={register}
+                    errorMessage={errors.laptop_state?.message}
+                    dirtyFields={dirtyFields.laptop_state}
+                    checked1={laptop_state === 'SSD'}
+                    checked2={laptop_state === 'HDD'}
                   />
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
@@ -220,7 +319,7 @@ const LaptopInfo = () => {
           <div className='flex w-full justify-between pb-14'>
             <Link
               to='/employ-info'
-              className={`pl-4 lg:pl-0  rounded-lg  text-center  text-lg  tracking-wide text-mainButtonColor hover:text-hoverButtonColor  focus:text-focusButtonColor font-semibold`}
+              className={`pl-4 lg:pl-0 pt-3 rounded-lg  text-center  text-lg  tracking-wide text-mainButtonColor hover:text-hoverButtonColor  focus:text-focusButtonColor font-semibold`}
             >
               უკან
             </Link>

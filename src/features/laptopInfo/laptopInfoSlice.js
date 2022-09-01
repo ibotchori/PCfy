@@ -33,6 +33,7 @@ const initialState = {
   error: null,
   laptop_name: '',
   laptop_image: '',
+  selectedLaptopBrand: '',
   laptop_brand_id: '',
   laptop_cpu: '',
   laptop_cpu_cores: '',
@@ -54,6 +55,9 @@ export const laptopInfoSlice = createSlice({
     setLaptopImage: (state, action) => {
       state.laptop_image = action.payload
     },
+    setSelectedLaptopBrand: (state, action) => {
+      state.selectedLaptopBrand = action.payload
+    },
     setLaptopBrandId: (state, action) => {
       state.laptop_brand_id = action.payload
     },
@@ -61,13 +65,13 @@ export const laptopInfoSlice = createSlice({
       state.laptop_cpu = action.payload
     },
     setLaptopCPUCores: (state, action) => {
-      state.laptop_cpu_cores = action.payload
+      state.laptop_cpu_cores = +action.payload
     },
     setLaptopCPUThreads: (state, action) => {
-      state.laptop_cpu_threads = action.payload
+      state.laptop_cpu_threads = +action.payload
     },
     setLaptopRam: (state, action) => {
-      state.laptop_ram = action.payload
+      state.laptop_ram = +action.payload
     },
     setLaptopHardDriveType: (state, action) => {
       state.laptop_hard_drive_type = action.payload
@@ -79,7 +83,7 @@ export const laptopInfoSlice = createSlice({
       state.laptop_purchase_date = action.payload
     },
     setLaptopPrice: (state, action) => {
-      state.laptop_price = action.payload
+      state.laptop_price = +action.payload
     },
     resetLaptopInfoState: (state) => {},
   },
@@ -117,6 +121,7 @@ export const laptopInfoSlice = createSlice({
 export const {
   setLaptopName,
   setLaptopImage,
+  setSelectedLaptopBrand,
   setLaptopBrandId,
   setLaptopCPU,
   setLaptopCPUCores,
