@@ -55,6 +55,7 @@ const initialState = {
   laptop_state: '',
   laptop_purchase_date: '',
   laptop_price: '',
+  uploadImageError: false,
 }
 
 export const laptopInfoSlice = createSlice({
@@ -97,6 +98,10 @@ export const laptopInfoSlice = createSlice({
     setLaptopPrice: (state, action) => {
       state.laptop_price = +action.payload
     },
+    setUploadImageError: (state, action) => {
+      state.uploadImageError = action.payload
+    },
+
     resetLaptopInfoState: (state) => {},
   },
   extraReducers: {
@@ -154,6 +159,7 @@ export const {
   setLaptopState,
   setLaptopPurchaseDate,
   setLaptopPrice,
+  setUploadImageError,
 } = laptopInfoSlice.actions
 
 export default laptopInfoSlice.reducer
