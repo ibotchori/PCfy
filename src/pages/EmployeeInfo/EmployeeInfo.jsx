@@ -41,15 +41,8 @@ const EmployeeInfo = () => {
   }, [dispatch])
 
   //  Global state (Redux)
-  const fetchedTeams = useSelector((state) => state.employeeInfo.fetchedTeams)
-
-  const fetchedPositions = useSelector(
-    (state) => state.employeeInfo.fetchedPositions
-  )
-  const selectedTeam = useSelector((state) => state.employeeInfo.selectedTeam)
-  const selectedPosition = useSelector(
-    (state) => state.employeeInfo.selectedPosition
-  )
+  const { fetchedTeams, fetchedPositions, selectedTeam, selectedPosition } =
+    useSelector((state) => state.employeeInfo)
 
   /* Logic for select's options */
   let selectedTeamObject = fetchedTeams.filter(

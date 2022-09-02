@@ -1,6 +1,10 @@
 /* eslint-disable no-unused-vars */
 import { BackArrow, GoBackButton } from 'components'
-import { fetchLaptop } from 'features/laptopInfo/laptopInfoSlice'
+import {
+  fetchPositions,
+  fetchTeams,
+} from 'features/employeeInfo/employeeInfoSlice'
+import { fetchBrands, fetchLaptop } from 'features/laptopInfo/laptopInfoSlice'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
@@ -9,11 +13,30 @@ const LaptopDetailedInfo = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const { fetchedLaptop } = useSelector((state) => state.laptopInfo)
+  const { fetchedLaptop, fetchedBrands } = useSelector(
+    (state) => state.laptopInfo
+  )
+
+  const { fetchedTeams, fetchedPositions } = useSelector(
+    (state) => state.employeeInfo
+  )
+
+  let team = fetchedTeams.filter(
+    (item) => item.id === fetchedLaptop.user?.team_id
+  )
+  let position = fetchedPositions.filter(
+    (item) => item.id === fetchedLaptop.user?.position_id
+  )
+  let brand = fetchedBrands.filter(
+    (item) => item.id === fetchedLaptop.laptop?.brand_id
+  )
 
   // fetch data
   useEffect(() => {
     dispatch(fetchLaptop(params.id))
+    dispatch(fetchTeams())
+    dispatch(fetchPositions())
+    dispatch(fetchBrands())
   }, [dispatch])
 
   return (
@@ -38,7 +61,7 @@ const LaptopDetailedInfo = () => {
               <div className='w-full flex flex-col lg:flex-row  justify-start p-[0.45rem] space-x-0 lg:space-x-12'>
                 <div className='w-full lg:w-[50%]'>
                   <img
-                    className='w-full lg:w-[95%] h-[12rem] sm:h-[18.375rem] bg-gray-300  flex-shrink-0 object-cover object-top rounded-md transition duration-500 group-hover:rounded-xl'
+                    className='w-full lg:w-[95%] h-[12rem] sm:h-[18.375rem] bg-gray-300  flex-shrink-0 object-cover object-center rounded-md transition duration-500 group-hover:rounded-xl'
                     src={`https://pcfy.redberryinternship.ge${fetchedLaptop.laptop?.image}`}
                     alt='PC'
                   />
@@ -54,8 +77,8 @@ const LaptopDetailedInfo = () => {
                   </div>
                   <div className='flex-1 flex flex-col gap-2 lg:gap-7 font-light  text-xs lg:text-sm  pt-8 lg:pt-0'>
                     <p>{fetchedLaptop.user?.name}</p>
-                    <p>{fetchedLaptop.user?.team_id}</p>
-                    <p>{fetchedLaptop.user?.position_id}</p>
+                    <p>{team[0]?.name}</p>
+                    <p>{position[0]?.name}</p>
                     <p>{fetchedLaptop.user?.email}</p>
                     <p>{fetchedLaptop.user?.phone_number}</p>
                   </div>
@@ -75,7 +98,7 @@ const LaptopDetailedInfo = () => {
                     </div>
                     <div className='flex-1 flex flex-col gap-2 lg:gap-7 font-light   text-xs lg:text-sm  '>
                       <p>{fetchedLaptop.laptop?.name}</p>
-                      <p>{fetchedLaptop.laptop?.brand_id}</p>
+                      <p>{brand[0]?.name}</p>
                       <p>{fetchedLaptop.laptop?.ram}</p>
                       <p>{fetchedLaptop.laptop?.hard_drive_type}</p>
                     </div>
