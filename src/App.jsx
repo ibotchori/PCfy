@@ -17,7 +17,7 @@ function App() {
         <Route path='/laptop-info' element={<LaptopInfo />} />
         <Route path='/successful' element={<Successful />} />
         <Route path='/laptop-list' element={<LaptopList />} />
-        <Route path='/laptop-details' element={<LaptopDetailedInfo />} />
+        <Route path='/laptop-list/:id' element={<LaptopDetailedInfo />} />
       </Routes>
     </BrowserRouter>
   )

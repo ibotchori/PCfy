@@ -9,12 +9,11 @@ const LaptopList = () => {
   const dispatch = useDispatch()
   const { fetchedLaptops } = useSelector((state) => state.laptopInfo)
 
-  const token = '5e58375285e927fe3f2ae52b4b607811'
-
   // fetch data
   useEffect(() => {
-    dispatch(fetchLaptops(token))
+    dispatch(fetchLaptops())
   }, [dispatch])
+
   return (
     <div className='min-h-screen w-full '>
       <div className='absolute'>
@@ -56,7 +55,7 @@ const LaptopList = () => {
                       {laptop.laptop.name}
                     </p>
                     <Link
-                      to={'/laptop-details'}
+                      to={`${laptop.laptop.id}`}
                       className={`cursor-pointer pb-3 pt-6 sm:pt-0 rounded-lg  text-center  text-xs  tracking-wide text-mainButtonColor hover:text-hoverButtonColor  focus:text-focusButtonColor font-semibold underline`}
                     >
                       მეტის ნახვა

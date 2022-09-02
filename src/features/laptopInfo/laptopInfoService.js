@@ -2,7 +2,8 @@
 
 import axios from 'axios'
 
-const baseURL = 'https://pcfy.redberryinternship.ge/api'
+const baseURL = process.env.REACT_APP_BASE_URL
+const token = process.env.REACT_APP_TOKEN
 
 const fetchBrands = async () => {
   const results = await axios(`${baseURL}/brands`)
@@ -12,8 +13,13 @@ const fetchCPUs = async () => {
   const results = await axios(`${baseURL}/cpus`)
   return results.data.data
 }
-const fetchLaptops = async (token) => {
+const fetchLaptops = async () => {
   const results = await axios(`${baseURL}/laptops?token=${token}`)
+  return results.data.data
+}
+const fetchLaptop = async (id) => {
+  const results = await axios(`${baseURL}/laptop/${id}?token=${token}`)
+
   return results.data.data
 }
 
@@ -31,6 +37,7 @@ const laptopInfoService = {
   fetchBrands,
   fetchCPUs,
   fetchLaptops,
+  fetchLaptop,
   submitData,
 }
 

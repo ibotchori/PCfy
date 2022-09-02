@@ -1,7 +1,21 @@
+/* eslint-disable no-unused-vars */
 import { BackArrow, GoBackButton } from 'components'
-import React from 'react'
+import { fetchLaptop } from 'features/laptopInfo/laptopInfoSlice'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 
 const LaptopDetailedInfo = () => {
+  const dispatch = useDispatch()
+  const params = useParams()
+
+  const { fetchedLaptop } = useSelector((state) => state.laptopInfo)
+
+  // fetch data
+  useEffect(() => {
+    dispatch(fetchLaptop(params.id))
+  }, [dispatch])
+
   return (
     <div className='min-h-screen w-full '>
       <div className='absolute'>
@@ -18,14 +32,14 @@ const LaptopDetailedInfo = () => {
 
         <div className=' items-center flex justify-center py-5 sm:py-14 w-[95%] sm:w-[65%]  '>
           {/* Divide */}
-          <div class=' w-full divide-y-2  divide-gray-200 '>
+          <div className=' w-full divide-y-2  divide-gray-200 '>
             {/* Divide 1 */}
             <div className='pb-7 lg:pb-14'>
               <div className='w-full flex flex-col lg:flex-row  justify-start p-[0.45rem] space-x-0 lg:space-x-12'>
                 <div className='w-full lg:w-[50%]'>
                   <img
                     className='w-full lg:w-[95%] h-[12rem] sm:h-[18.375rem] bg-gray-300  flex-shrink-0 object-cover object-top rounded-md transition duration-500 group-hover:rounded-xl'
-                    src='https://images.unsplash.com/photo-1588872657578-7efd1f1555ed?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bGFwdG9wc3xlbnwwfHwwfHw%3D&w=1000&q=80'
+                    src={`https://pcfy.redberryinternship.ge${fetchedLaptop.laptop?.image}`}
                     alt='PC'
                   />
                 </div>
@@ -39,11 +53,11 @@ const LaptopDetailedInfo = () => {
                     <p>ტელ. ნომერი:</p>
                   </div>
                   <div className='flex-1 flex flex-col gap-2 lg:gap-7 font-light  text-xs lg:text-sm  pt-8 lg:pt-0'>
-                    <p>აკაკი წერეთელი</p>
-                    <p>დიზაინერი</p>
-                    <p>ილუსტრატორი</p>
-                    <p>kosta@Redberry.ge</p>
-                    <p>+995 577 45 80 12</p>
+                    <p>{fetchedLaptop.user?.name}</p>
+                    <p>{fetchedLaptop.user?.team_id}</p>
+                    <p>{fetchedLaptop.user?.position_id}</p>
+                    <p>{fetchedLaptop.user?.email}</p>
+                    <p>{fetchedLaptop.user?.phone_number}</p>
                   </div>
                 </div>
               </div>
@@ -60,10 +74,10 @@ const LaptopDetailedInfo = () => {
                       <p>მეხსიერება:</p>
                     </div>
                     <div className='flex-1 flex flex-col gap-2 lg:gap-7 font-light   text-xs lg:text-sm  '>
-                      <p>Razor Basasdla Bla</p>
-                      <p>Compaq</p>
-                      <p>16as</p>
-                      <p>SSsasdD</p>
+                      <p>{fetchedLaptop.laptop?.name}</p>
+                      <p>{fetchedLaptop.laptop?.brand_id}</p>
+                      <p>{fetchedLaptop.laptop?.ram}</p>
+                      <p>{fetchedLaptop.laptop?.hard_drive_type}</p>
                     </div>
                   </div>
                 </div>
@@ -75,9 +89,9 @@ const LaptopDetailedInfo = () => {
                     <p className='lg:invisible lg:block hidden'>hidden text</p>
                   </div>
                   <div className='flex-1 flex flex-col gap-2 lg:gap-7 font-light   text-xs lg:text-sm  '>
-                    <p>Intel 5asdas</p>
-                    <p>1asda3</p>
-                    <p>67asa</p>
+                    <p>{fetchedLaptop.laptop?.cpu?.name}</p>
+                    <p>{fetchedLaptop.laptop?.cpu?.cores}</p>
+                    <p>{fetchedLaptop.laptop?.cpu?.threads}</p>
                     <p className='lg:invisible lg:block hidden'>hidden text</p>
                   </div>
                 </div>
@@ -93,19 +107,23 @@ const LaptopDetailedInfo = () => {
                       <p>ლეპტოპის ფასი:</p>
                     </div>
                     <div className='flex-1 flex flex-col gap-2 lg:gap-7 font-light   text-xs lg:text-sm  '>
-                      <p>მეორადი</p>
-                      <p>1500 ₾</p>
+                      <p>
+                        {fetchedLaptop.laptop?.state !== 'used'
+                          ? 'ახალი'
+                          : 'მეორადი'}
+                      </p>
+                      <p>{fetchedLaptop.laptop?.price} ₾</p>
                     </div>
                   </div>
                 </div>
                 <div className='flex lg:gap-24 items-center '>
                   <div className='flex-1 flex flex-col gap-2 lg:gap-7 truncate pt-2 lg:pt-0  text-xs lg:text-sm font-semibold '>
-                    <p className='w-44'>შევსების რიცხვი:</p>
-
+                    <p className='w-48'>შევსების რიცხვი:</p>
                     <p className='lg:invisible lg:block hidden'>hidden text</p>
                   </div>
                   <div className='flex-1 flex flex-col gap-2 lg:gap-7  font-light  text-xs lg:text-sm  '>
-                    <p>12 / 06 / 2022</p>
+                    <p>{fetchedLaptop.laptop?.purchase_date}</p>
+
                     <p className='lg:invisible lg:block hidden'>hidden text</p>
                   </div>
                 </div>
