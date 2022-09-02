@@ -11,7 +11,7 @@ import {
 import { Link, useNavigate } from 'react-router-dom'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { CameraIcon } from 'assets'
+import { CameraIcon, ErrorIcon } from 'assets'
 /* Redux */
 import { useSelector, useDispatch } from 'react-redux'
 // actions
@@ -68,6 +68,7 @@ const LaptopInfo = () => {
     useSelector((state) => state.employeeInfo)
 
   /* File Upload Functional */
+
   const onDrop = useCallback(
     (acceptedFiles) => {
       // Do something with the files
@@ -83,6 +84,12 @@ const LaptopInfo = () => {
       'image/jpeg': ['.jpeg', '.png'],
     },
   })
+  const [uploadImageError, setUploadImageError] = useState(false)
+  useEffect(() => {
+    if (laptop_image.name) {
+      setUploadImageError(false)
+    }
+  }, [laptop_image.name])
   /* File Upload Functional END */
 
   /* Use Form */
@@ -148,6 +155,10 @@ const LaptopInfo = () => {
   formData.append('token', '5e58375285e927fe3f2ae52b4b607811')
 
   const onSubmit = (data) => {
+    if (!laptop_image.name) {
+      setUploadImageError(true)
+      return
+    }
     dispatch(submitData(formData))
     navigate('/successful')
   }
@@ -173,20 +184,39 @@ const LaptopInfo = () => {
                 <div
                   {...getRootProps()}
                   className={`mb-10 h-[16rem] sm:h-[27rem] ${
-                    isDragActive ? 'bg-gray-200' : 'bg-gray-100'
-                  }  flex flex-col justify-evenly px-6 pt-5 pb-6 border-2 border-[#4386A9] border-dashed rounded-lg  `}
+                    isDragActive
+                      ? 'bg-gray-200'
+                      : uploadImageError
+                      ? 'bg-red-50'
+                      : 'bg-gray-100'
+                  }  flex flex-col justify-evenly px-6 pt-5 pb-6 border-2 ${
+                    uploadImageError ? 'border-red-500' : 'border-[#4386A9] '
+                  } border-dashed rounded-lg  `}
                 >
                   <div className='w-full flex lg:hidden justify-center '>
                     <img src={CameraIcon} alt='' />
                   </div>
 
                   {laptop_image.name ? (
-                    <p className='pt-0 lg:pt-16 text-xl font-semibold text-center w-60 mx-auto leading-relaxed text-[#4386A9] '>
-                      ფაილი დამატებულია:{' '}
+                    <p
+                      className={`pt-0 lg:pt-16 text-xl font-semibold text-center w-60 mx-auto leading-relaxed  text-[#4386A9]  `}
+                    >
+                      ფოტო დამატებულია:{' '}
                       <p className='truncate ...'>{laptop_image.name}</p>
                     </p>
                   ) : (
-                    <p className='pt-0 lg:pt-16 text-xl font-semibold text-center w-60 mx-auto leading-relaxed text-[#4386A9] '>
+                    <p
+                      className={`flex lg:flex-col flex-col-reverse  pt-0  text-xl font-semibold text-center w-60 mx-auto leading-relaxed  ${
+                        uploadImageError ? 'text-red-500' : 'text-[#4386A9] '
+                      } `}
+                    >
+                      <img
+                        className={`w-6 lg:w-10  m-auto py-3 ${
+                          uploadImageError ? 'visible' : 'invisible'
+                        }`}
+                        src={ErrorIcon}
+                        alt='error'
+                      />
                       ჩააგდე ან ატვირთე ლეპტოპის ფოტო
                     </p>
                   )}
