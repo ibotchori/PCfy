@@ -12,10 +12,8 @@ const fetchCPUs = async () => {
   const results = await axios(`${baseURL}/cpus`)
   return results.data.data
 }
-const fetchLaptops = async () => {
-  const results = await axios(
-    `${baseURL}/laptops?token=5e58375285e927fe3f2ae52b4b607811`
-  )
+const fetchLaptops = async (token) => {
+  const results = await axios(`${baseURL}/laptops?token=${token}`)
   return results.data.data
 }
 

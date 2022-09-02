@@ -9,9 +9,11 @@ const LaptopList = () => {
   const dispatch = useDispatch()
   const { fetchedLaptops } = useSelector((state) => state.laptopInfo)
 
+  const token = '5e58375285e927fe3f2ae52b4b607811'
+
   // fetch data
   useEffect(() => {
-    dispatch(fetchLaptops())
+    dispatch(fetchLaptops(token))
   }, [dispatch])
   return (
     <div className='min-h-screen w-full '>
@@ -35,7 +37,7 @@ const LaptopList = () => {
           >
             {fetchedLaptops.map((laptop) => (
               <li
-                key={laptop.id}
+                key={laptop.laptop.id}
                 className='col-span-1 bg-cardBGColor rounded-lg shadow divide-y divide-gray-200'
               >
                 <div className='w-full flex items-center justify-between p-[0.45rem] mr-12 space-x-3 sm:space-x-6'>

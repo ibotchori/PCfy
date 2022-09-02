@@ -27,10 +27,10 @@ export const fetchCPUs = createAsyncThunk(
 )
 export const fetchLaptops = createAsyncThunk(
   'laptopInfo/fetchLaptops', // <-- action name
-  async function (_, { rejectWithValue }) {
+  async function (token, { rejectWithValue }) {
     try {
       // API call from laptopInfoService file
-      return await laptopInfoService.fetchLaptops()
+      return await laptopInfoService.fetchLaptops(token)
     } catch (error) {
       // pass error message to fetchLaptops.reject (action.payload)
       return rejectWithValue(error.message)
