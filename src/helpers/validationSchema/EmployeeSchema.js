@@ -3,14 +3,13 @@ import * as yup from 'yup'
 export const EmployeeSchema = yup.object().shape({
   name: yup
     .string()
-    .required('სახელი სავალდებულოა.')
-    .matches(/[\u10A0-\u10FF]$/, 'მხოლოდ ქართული სიმბოლოები.')
-    .min(2, 'მინიმუმ 2 სიმბოლო.')
-    .max(20, 'მაქსიმუმ 20 სიმბოლო.'),
+    .matches(/[Ⴀ-\u10fe]$/, 'მხოლოდ ქართული სიმბოლოები.')
+    .required('სახელი სავალდებულოა.'),
+
   surname: yup
     .string()
     .required('გვარი სავალდებულოა.')
-    .matches(/[\u10A0-\u10FF]$/, 'მხოლოდ ქართული სიმბოლოები.')
+    .matches(/[Ⴀ-\u10fe]$/, 'მხოლოდ ქართული სიმბოლოები.')
     .min(2, 'მინიმუმ 2 სიმბოლო.')
     .max(20, 'მაქსიმუმ 20 სიმბოლო.'),
   team: yup.string().required(),
@@ -27,7 +26,7 @@ export const EmployeeSchema = yup.object().shape({
     .string()
     .required('ტელეფონი სავალდებულოა.')
     .matches(
-      /^(\+?995)?(79\d{7}|5\d{8})$/,
+      /^(\+995)(79\d{7}|5\d{8})$/,
       'უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს'
     ),
 })
