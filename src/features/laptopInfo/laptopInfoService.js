@@ -12,6 +12,12 @@ const fetchCPUs = async () => {
   const results = await axios(`${baseURL}/cpus`)
   return results.data.data
 }
+const fetchLaptops = async () => {
+  const results = await axios(
+    `${baseURL}/laptops?token=5e58375285e927fe3f2ae52b4b607811`
+  )
+  return results.data.data
+}
 
 const submitData = async (dataForSubmit) => {
   const results = await axios({
@@ -26,6 +32,7 @@ const submitData = async (dataForSubmit) => {
 const laptopInfoService = {
   fetchBrands,
   fetchCPUs,
+  fetchLaptops,
   submitData,
 }
 

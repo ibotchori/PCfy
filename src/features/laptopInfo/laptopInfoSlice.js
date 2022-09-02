@@ -25,6 +25,18 @@ export const fetchCPUs = createAsyncThunk(
     }
   }
 )
+export const fetchLaptops = createAsyncThunk(
+  'laptopInfo/fetchLaptops', // <-- action name
+  async function (_, { rejectWithValue }) {
+    try {
+      // API call from laptopInfoService file
+      return await laptopInfoService.fetchLaptops()
+    } catch (error) {
+      // pass error message to fetchLaptops.reject (action.payload)
+      return rejectWithValue(error.message)
+    }
+  }
+)
 export const submitData = createAsyncThunk(
   'laptopInfo/submitData', // <-- action name
   async function (dataForSubmit, { rejectWithValue }) {
@@ -41,6 +53,7 @@ export const submitData = createAsyncThunk(
 const initialState = {
   fetchedBrands: [],
   fetchedCPUs: [],
+  fetchedLaptops: [],
   status: null,
   error: null,
   laptop_name: '',
@@ -128,6 +141,19 @@ export const laptopInfoSlice = createSlice({
       state.error = null
     },
     [fetchCPUs.rejected]: (state, action) => {
+      state.status = 'rejected'
+      state.error = action.payload
+    },
+    [fetchLaptops.pending]: (state) => {
+      state.status = 'pending'
+      state.error = null
+    },
+    [fetchLaptops.fulfilled]: (state, action) => {
+      state.status = 'fulfilled'
+      state.fetchedLaptops = action.payload
+      state.error = null
+    },
+    [fetchLaptops.rejected]: (state, action) => {
       state.status = 'rejected'
       state.error = action.payload
     },
