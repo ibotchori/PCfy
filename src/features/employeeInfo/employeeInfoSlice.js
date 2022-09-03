@@ -69,7 +69,20 @@ export const employeeInfoSlice = createSlice({
     setPhoneNumber: (state, action) => {
       state.phone_number = action.payload
     },
-    resetEmployeeInfoState: (state) => {},
+    resetEmployeeInfoState: (state) => {
+      state.fetchedTeams = []
+      state.fetchedPositions = []
+      state.status = null
+      state.error = null
+      state.name = ''
+      state.surname = ''
+      state.selectedTeam = ''
+      state.selectedPosition = ''
+      state.team_id = ''
+      state.position_id = ''
+      state.email = ''
+      state.phone_number = ''
+    },
   },
   extraReducers: {
     [fetchTeams.pending]: (state) => {
@@ -111,6 +124,7 @@ export const {
   setPositionID,
   setEmail,
   setPhoneNumber,
+  resetEmployeeInfoState,
 } = employeeInfoSlice.actions
 
 export default employeeInfoSlice.reducer

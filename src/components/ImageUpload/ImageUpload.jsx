@@ -14,7 +14,6 @@ const ImageUpload = () => {
   const { laptop_image, uploadImageError } = useSelector(
     (state) => state.laptopInfo
   )
-  /* File Upload Functional */
 
   const onDrop = useCallback(
     (acceptedFiles) => {
@@ -37,7 +36,7 @@ const ImageUpload = () => {
       dispatch(setUploadImageError(false))
     }
   }, [laptop_image.name, dispatch])
-  /* File Upload Functional END */
+
   return (
     <div className='lg:px-0 px-5'>
       <div

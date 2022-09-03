@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import {
   GoBackButton,
   ImageUpload,
@@ -17,6 +16,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   fetchBrands,
   fetchCPUs,
+  resetLaptopInfoState,
   setLaptopBrandId,
   setLaptopCPU,
   setLaptopCPUCores,
@@ -35,6 +35,7 @@ import { useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { LaptopInfoSchema } from 'helpers/validationSchema/LaptopInfoSchema'
+import { resetEmployeeInfoState } from 'features/employeeInfo/employeeInfoSlice'
 
 const LaptopInfo = () => {
   const dispatch = useDispatch()
@@ -63,15 +64,12 @@ const LaptopInfo = () => {
     laptop_ram,
     laptop_price,
   } = useSelector((state) => state.laptopInfo)
-  const { name, surname, team_id, position_id, email, phone_number } =
-    useSelector((state) => state.employeeInfo)
 
   /* Use Form */
   const {
     register,
     handleSubmit,
     watch,
-    reset,
     setValue,
     formState: { errors, dirtyFields },
   } = useForm({
@@ -108,6 +106,8 @@ const LaptopInfo = () => {
 
   // prepare data for submit
 
+  const token = process.env.REACT_APP_TOKEN
+
   let storage = JSON.parse(localStorage.getItem('storageKey'))
   let teamID = JSON.parse(localStorage.getItem('selectedTeamID'))
   let positionID = JSON.parse(localStorage.getItem('selectedPositionID'))
@@ -131,7 +131,7 @@ const LaptopInfo = () => {
   formData.append('laptop_state', laptop_state)
   formData.append('laptop_purchase_date', laptop_purchase_date)
   formData.append('laptop_price', laptop_price)
-  formData.append('token', '5e58375285e927fe3f2ae52b4b607811')
+  formData.append('token', token)
 
   const onSubmit = (data) => {
     if (!laptop_image.name) {
@@ -140,6 +140,11 @@ const LaptopInfo = () => {
     }
     dispatch(submitData(formData))
     navigate('/successful')
+    localStorage.removeItem('selectedTeamID')
+    localStorage.removeItem('selectedPositionID')
+    localStorage.removeItem('storageKey')
+    dispatch(resetLaptopInfoState())
+    dispatch(resetEmployeeInfoState())
   }
 
   return (

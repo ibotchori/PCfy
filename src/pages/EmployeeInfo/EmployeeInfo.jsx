@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react'
 import {
   GoBackButton,
@@ -61,7 +60,6 @@ const EmployeeInfo = () => {
     register,
     handleSubmit,
     watch,
-    reset,
     setValue,
     formState: { errors, dirtyFields },
   } = useForm({

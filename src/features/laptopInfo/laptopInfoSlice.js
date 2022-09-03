@@ -132,7 +132,27 @@ export const laptopInfoSlice = createSlice({
       state.uploadImageError = action.payload
     },
 
-    resetLaptopInfoState: (state) => {},
+    resetLaptopInfoState: (state) => {
+      state.fetchedBrands = []
+      state.fetchedCPUs = []
+      state.fetchedLaptops = []
+      state.fetchedLaptop = {}
+      state.status = null
+      state.error = null
+      state.laptop_name = ''
+      state.laptop_image = {}
+      state.selectedLaptopBrand = ''
+      state.laptop_brand_id = ''
+      state.laptop_cpu = ''
+      state.laptop_cpu_cores = ''
+      state.laptop_cpu_threads = ''
+      state.laptop_ram = ''
+      state.laptop_hard_drive_type = ''
+      state.laptop_state = ''
+      state.laptop_purchase_date = ''
+      state.laptop_price = ''
+      state.uploadImageError = false
+    },
   },
   extraReducers: {
     [fetchBrands.pending]: (state) => {
@@ -216,6 +236,7 @@ export const {
   setLaptopPurchaseDate,
   setLaptopPrice,
   setUploadImageError,
+  resetLaptopInfoState,
 } = laptopInfoSlice.actions
 
 export default laptopInfoSlice.reducer

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { BackArrow, GoBackButton } from 'components'
 import {
   fetchPositions,
