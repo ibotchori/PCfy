@@ -2,7 +2,7 @@
 
 import axios from 'axios'
 
-const baseURL = 'https://pcfy.redberryinternship.ge/api'
+const baseURL = process.env.REACT_APP_BASE_URL
 
 const fetchTeams = async () => {
   const results = await axios(`${baseURL}/teams`)
