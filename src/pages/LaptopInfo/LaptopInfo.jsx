@@ -107,14 +107,19 @@ const LaptopInfo = () => {
   }, [watch(), dispatch])
 
   // prepare data for submit
+
+  let storage = JSON.parse(localStorage.getItem('storageKey'))
+  let teamID = JSON.parse(localStorage.getItem('selectedTeamID'))
+  let positionID = JSON.parse(localStorage.getItem('selectedPositionID'))
+
   const formData = new FormData()
 
-  formData.append('name', name)
-  formData.append('surname', surname)
-  formData.append('team_id', team_id)
-  formData.append('position_id', position_id)
-  formData.append('email', email)
-  formData.append('phone_number', phone_number)
+  formData.append('name', storage.name)
+  formData.append('surname', storage.surname)
+  formData.append('team_id', teamID)
+  formData.append('position_id', positionID)
+  formData.append('email', storage.email)
+  formData.append('phone_number', storage.phone_number)
   formData.append('laptop_name', laptop_name)
   formData.append('laptop_image', laptop_image)
   formData.append('laptop_brand_id', laptop_brand_id)

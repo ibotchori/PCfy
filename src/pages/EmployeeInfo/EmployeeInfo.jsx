@@ -88,6 +88,8 @@ const EmployeeInfo = () => {
   }, [watch(), dispatch])
 
   const onSubmit = (data) => {
+    localStorage.setItem('selectedTeamID', selectedTeamObject[0]?.id)
+    localStorage.setItem('selectedPositionID', selectedPositionObject[0]?.id)
     navigate('/laptop-info')
   }
 
