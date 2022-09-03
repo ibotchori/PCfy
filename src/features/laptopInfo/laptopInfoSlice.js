@@ -187,7 +187,7 @@ export const laptopInfoSlice = createSlice({
     },
     [fetchLaptops.fulfilled]: (state, action) => {
       state.status = 'fulfilled'
-      state.fetchedLaptops = action.payload
+      state.fetchedLaptops = action.payload.reverse()
       state.error = null
     },
     [fetchLaptops.rejected]: (state, action) => {
