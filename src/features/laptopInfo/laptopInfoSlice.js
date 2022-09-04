@@ -2,65 +2,55 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import laptopInfoService from './laptopInfoService'
 
 export const fetchBrands = createAsyncThunk(
-  'laptopInfo/fetchBrands', // <-- action name
+  'laptopInfo/fetchBrands',
   async function (_, { rejectWithValue }) {
     try {
-      // API call from laptopInfoService file
       return await laptopInfoService.fetchBrands()
     } catch (error) {
-      // pass error message to fetchBrands.reject (action.payload)
       return rejectWithValue(error.message)
     }
   }
 )
 
 export const fetchCPUs = createAsyncThunk(
-  'laptopInfo/fetchCPUs', // <-- action name
+  'laptopInfo/fetchCPUs',
   async function (_, { rejectWithValue }) {
     try {
-      // API call from laptopInfoService file
       return await laptopInfoService.fetchCPUs()
     } catch (error) {
-      // pass error message to fetchCPUs.reject (action.payload)
       return rejectWithValue(error.message)
     }
   }
 )
 
 export const fetchLaptops = createAsyncThunk(
-  'laptopInfo/fetchLaptops', // <-- action name
+  'laptopInfo/fetchLaptops',
   async function (token, { rejectWithValue }) {
     try {
-      // API call from laptopInfoService file
       return await laptopInfoService.fetchLaptops(token)
     } catch (error) {
-      // pass error message to fetchLaptops.reject (action.payload)
       return rejectWithValue(error.message)
     }
   }
 )
 
 export const fetchLaptop = createAsyncThunk(
-  'laptopInfo/fetchLaptop', // <-- action name
+  'laptopInfo/fetchLaptop',
   async function (id, { rejectWithValue }) {
     try {
-      // API call from laptopInfoService file
       return await laptopInfoService.fetchLaptop(id)
     } catch (error) {
-      // pass error message to fetchLaptop.reject (action.payload)
       return rejectWithValue(error.message)
     }
   }
 )
 
 export const submitData = createAsyncThunk(
-  'laptopInfo/submitData', // <-- action name
+  'laptopInfo/submitData',
   async function (dataForSubmit, { rejectWithValue }) {
     try {
-      // API call from adviceService file
       return await laptopInfoService.submitData(dataForSubmit)
     } catch (error) {
-      // pass error message to fetchSkills.reject (action.payload)
       return rejectWithValue(error.message)
     }
   }
@@ -155,57 +145,17 @@ export const laptopInfoSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchBrands.pending]: (state) => {
-      state.status = 'pending'
-      state.error = null
-    },
     [fetchBrands.fulfilled]: (state, action) => {
-      state.status = 'fulfilled'
       state.fetchedBrands = action.payload
-      state.error = null
-    },
-    [fetchBrands.rejected]: (state, action) => {
-      state.status = 'rejected'
-      state.error = action.payload
-    },
-    [fetchCPUs.pending]: (state) => {
-      state.status = 'pending'
-      state.error = null
     },
     [fetchCPUs.fulfilled]: (state, action) => {
-      state.status = 'fulfilled'
       state.fetchedCPUs = action.payload
-      state.error = null
-    },
-    [fetchCPUs.rejected]: (state, action) => {
-      state.status = 'rejected'
-      state.error = action.payload
-    },
-    [fetchLaptops.pending]: (state) => {
-      state.status = 'pending'
-      state.error = null
     },
     [fetchLaptops.fulfilled]: (state, action) => {
-      state.status = 'fulfilled'
       state.fetchedLaptops = action.payload.reverse()
-      state.error = null
-    },
-    [fetchLaptops.rejected]: (state, action) => {
-      state.status = 'rejected'
-      state.error = action.payload
-    },
-    [fetchLaptop.pending]: (state) => {
-      state.status = 'pending'
-      state.error = null
     },
     [fetchLaptop.fulfilled]: (state, action) => {
-      state.status = 'fulfilled'
       state.fetchedLaptop = action.payload
-      state.error = null
-    },
-    [fetchLaptop.rejected]: (state, action) => {
-      state.status = 'rejected'
-      state.error = action.payload
     },
     [submitData.pending]: (state) => {
       state.status = 'pending'
@@ -215,13 +165,11 @@ export const laptopInfoSlice = createSlice({
     },
     [submitData.rejected]: (state, action) => {
       state.status = 'rejected'
-      // set value to error from rejectWithValue parameter
       state.error = action.payload
     },
   },
 })
 
-// Action creators are generated for each case reducer function
 export const {
   setLaptopName,
   setLaptopImage,

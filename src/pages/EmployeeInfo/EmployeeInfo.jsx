@@ -43,7 +43,6 @@ const EmployeeInfo = () => {
   const { fetchedTeams, fetchedPositions, selectedTeam, selectedPosition } =
     useSelector((state) => state.employeeInfo)
 
-  /* Logic for select's options */
   let selectedTeamObject = fetchedTeams.filter(
     (item) => item.name === selectedTeam
   )
@@ -53,7 +52,6 @@ const EmployeeInfo = () => {
   let selectedPositionObject = filteredPositions.filter(
     (item) => item.name === selectedPosition
   )
-  /* Logic for select's options END */
 
   /* Use Form */
   const {
@@ -93,11 +91,8 @@ const EmployeeInfo = () => {
 
   return (
     <div className='bg-gray-100 w-full min-h-screen flex flex-col justify-between'>
-      {/* Go Back Button */}
       <GoBackButton path='/' />
-      {/* Title */}
       <PageTitle path='/' />
-      {/* Main Content */}
       <div className='flex justify-center h-full'>
         <form
           encType='multipart/form-data'
@@ -163,14 +158,11 @@ const EmployeeInfo = () => {
               hint='უნდა აკმაყოფილებდეს ქართული მობ-ნომრის ფორმატს'
             />
           </div>
-          {/* Footer */}
           <div className='w-full flex pr-3 lg:pr-0  pb-14 justify-end'>
             <SubmitButton text='შემდეგი' px='px-10' />
           </div>
         </form>
       </div>
-
-      {/* Redberry Logo */}
       <MainLogo />
     </div>
   )

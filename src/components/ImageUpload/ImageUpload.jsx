@@ -18,7 +18,6 @@ const ImageUpload = () => {
   const onDrop = useCallback(
     (acceptedFiles) => {
       // Do something with the files
-
       dispatch(setLaptopImage(acceptedFiles[0]))
     },
     [dispatch]

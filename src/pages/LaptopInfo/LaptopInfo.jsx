@@ -71,6 +71,7 @@ const LaptopInfo = () => {
     handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors, dirtyFields },
   } = useForm({
     mode: 'onChange',
@@ -81,7 +82,7 @@ const LaptopInfo = () => {
   useFormPersist('storageKey', {
     watch,
     setValue,
-    storage: window.localStorage, // default window.sessionStorage
+    storage: window.localStorage,
     exclude: ['baz'],
   })
 
@@ -105,7 +106,6 @@ const LaptopInfo = () => {
   }, [watch(), dispatch])
 
   // prepare data for submit
-
   const token = process.env.REACT_APP_TOKEN
 
   let storage = JSON.parse(localStorage.getItem('storageKey'))
@@ -114,24 +114,26 @@ const LaptopInfo = () => {
 
   const formData = new FormData()
 
-  formData.append('name', storage.name)
-  formData.append('surname', storage.surname)
-  formData.append('team_id', teamID)
-  formData.append('position_id', positionID)
-  formData.append('email', storage.email)
-  formData.append('phone_number', storage.phone_number)
-  formData.append('laptop_name', laptop_name)
-  formData.append('laptop_image', laptop_image)
-  formData.append('laptop_brand_id', laptop_brand_id)
-  formData.append('laptop_cpu', laptop_cpu)
-  formData.append('laptop_cpu_cores', laptop_cpu_cores)
-  formData.append('laptop_cpu_threads', laptop_cpu_threads)
-  formData.append('laptop_ram', laptop_ram)
-  formData.append('laptop_hard_drive_type', laptop_hard_drive_type)
-  formData.append('laptop_state', laptop_state)
-  formData.append('laptop_purchase_date', laptop_purchase_date)
-  formData.append('laptop_price', laptop_price)
-  formData.append('token', token)
+  if (storage) {
+    formData.append('name', storage.name)
+    formData.append('surname', storage.surname)
+    formData.append('team_id', teamID)
+    formData.append('position_id', positionID)
+    formData.append('email', storage.email)
+    formData.append('phone_number', storage.phone_number)
+    formData.append('laptop_name', laptop_name)
+    formData.append('laptop_image', laptop_image)
+    formData.append('laptop_brand_id', laptop_brand_id)
+    formData.append('laptop_cpu', laptop_cpu)
+    formData.append('laptop_cpu_cores', laptop_cpu_cores)
+    formData.append('laptop_cpu_threads', laptop_cpu_threads)
+    formData.append('laptop_ram', laptop_ram)
+    formData.append('laptop_hard_drive_type', laptop_hard_drive_type)
+    formData.append('laptop_state', laptop_state)
+    formData.append('laptop_purchase_date', laptop_purchase_date)
+    formData.append('laptop_price', laptop_price)
+    formData.append('token', token)
+  }
 
   const onSubmit = (data) => {
     if (!laptop_image.name) {
@@ -145,6 +147,7 @@ const LaptopInfo = () => {
     localStorage.removeItem('storageKey')
     dispatch(resetLaptopInfoState())
     dispatch(resetEmployeeInfoState())
+    reset()
   }
 
   return (

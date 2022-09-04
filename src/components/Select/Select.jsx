@@ -31,11 +31,6 @@ const Select = ({
           )
         })}
       </select>
-      {/*      <div className='h-[0.1px] flex text-[10px] sm:text-xs '>
-        <p className='pt-[6px] pl-1 text-gay-600'>
-          მინიმუმ 2 სიმბოლო, ქართული ასოები
-        </p>
-      </div> */}
     </div>
   )
 }
