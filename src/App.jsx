@@ -8,6 +8,8 @@ import {
   Successful,
 } from 'pages'
 import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         <Route path='/laptop-list' element={<LaptopList />} />
         <Route path='/laptop-list/:id' element={<LaptopDetailedInfo />} />
       </Routes>
+      <ToastContainer />
     </BrowserRouter>
   )
 }

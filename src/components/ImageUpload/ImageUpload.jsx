@@ -6,6 +6,7 @@ import {
 import React, { useCallback, useEffect } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 const ImageUpload = () => {
   const dispatch = useDispatch()
@@ -17,6 +18,12 @@ const ImageUpload = () => {
 
   const onDrop = useCallback(
     (acceptedFiles) => {
+      if (acceptedFiles[0].size > 900000) {
+        dispatch(setLaptopImage({}))
+        toast.warn('ლეპტოპის სურათი არ უნდა იყოს 900 კილობაიტზე მეტი.')
+        dispatch(setUploadImageError(true))
+        return
+      }
       // Do something with the files
       dispatch(setLaptopImage(acceptedFiles[0]))
     },
