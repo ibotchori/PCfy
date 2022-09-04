@@ -55,12 +55,12 @@ const ImageUpload = () => {
         </div>
 
         {laptop_image.name ? (
-          <p
+          <div
             className={`pt-0 lg:pt-16 text-xl font-semibold text-center w-60 mx-auto leading-relaxed  text-[#4386A9]  `}
           >
             ფოტო დამატებულია:{' '}
             <p className='truncate ...'>{laptop_image.name}</p>
-          </p>
+          </div>
         ) : (
           <p
             className={`flex lg:flex-col flex-col-reverse  pt-0  text-xl font-semibold text-center w-60 mx-auto leading-relaxed  ${
