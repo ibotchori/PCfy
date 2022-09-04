@@ -1,5 +1,6 @@
 import {
   EmployeeInfo,
+  ErrorPage,
   Landing,
   LaptopDetailedInfo,
   LaptopInfo,
@@ -13,6 +14,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Landing />} />
+        <Route path='/error' element={<ErrorPage />} />
         <Route path='/employ-info' element={<EmployeeInfo />} />
         <Route path='/laptop-info' element={<LaptopInfo />} />
         <Route path='/successful' element={<Successful />} />

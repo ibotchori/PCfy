@@ -10,6 +10,7 @@ module.exports = {
         successBGColor: '#4A4A4A',
         radioButtonColor: '#4D9AC3',
         cardBGColor: '#EAFAFF',
+        redberryColor: '#F93B1D',
       },
     },
   },
