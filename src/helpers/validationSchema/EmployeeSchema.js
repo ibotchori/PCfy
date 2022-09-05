@@ -4,8 +4,9 @@ export const EmployeeSchema = yup.object().shape({
   name: yup
     .string()
     .matches(/[Ⴀ-\u10fe]$/, 'მხოლოდ ქართული სიმბოლოები.')
-    .required('სახელი სავალდებულოა.'),
-
+    .required('სახელი სავალდებულოა.')
+    .min(2, 'მინიმუმ 2 სიმბოლო.')
+    .max(20, 'მაქსიმუმ 20 სიმბოლო.'),
   surname: yup
     .string()
     .required('გვარი სავალდებულოა.')

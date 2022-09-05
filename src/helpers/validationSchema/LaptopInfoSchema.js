@@ -7,9 +7,7 @@ export const LaptopInfoSchema = yup.object().shape({
     .matches(
       /^[ A-Za-z0-9_!@#$%^&*()_+=]*$/,
       'მხოლოდ ლათინური ასოები, ციფრები და !@#$%^&*()_+='
-    )
-    .min(2, 'მინიმუმ 2 სიმბოლო.')
-    .max(20, 'მაქსიმუმ 20 სიმბოლო.'),
+    ),
   laptop_brand: yup.string().required(),
   laptop_cpu: yup.string().required(),
   laptop_cpu_cores: yup.number().required().typeError('მხოლოდ ციფრები.'),
