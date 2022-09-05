@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export const EmployeeSchema = yup.object().shape({
+const EmployeeSchema = yup.object().shape({
   name: yup
     .string()
     .matches(/[Ⴀ-\u10fe]$/, 'მხოლოდ ქართული სიმბოლოები.')
@@ -31,3 +31,5 @@ export const EmployeeSchema = yup.object().shape({
       'უნდა აკმაყოფილებდეს ქართული მობილურის ნომრის ფორმატს'
     ),
 })
+
+export default EmployeeSchema

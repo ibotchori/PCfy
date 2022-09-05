@@ -17,7 +17,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   fetchBrands,
   fetchCPUs,
-  resetLaptopInfoState,
   setLaptopBrandId,
   setLaptopCPU,
   setLaptopCPUCores,
@@ -35,8 +34,9 @@ import {
 import { useForm } from 'react-hook-form'
 import useFormPersist from 'react-hook-form-persist'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { LaptopInfoSchema } from 'helpers/validationSchema/LaptopInfoSchema'
-import { resetEmployeeInfoState } from 'features/employeeInfo/employeeInfoSlice'
+import { LaptopInfoSchema } from 'Schema'
+
+import { navigatePage } from 'helpers'
 
 const LaptopInfo = () => {
   const dispatch = useDispatch()
@@ -139,26 +139,16 @@ const LaptopInfo = () => {
 
   useEffect(() => {
     if (status === 'rejected') {
-      navigate('/error')
-      localStorage.removeItem('selectedTeamID')
-      localStorage.removeItem('selectedPositionID')
-      localStorage.removeItem('storageKey')
-      dispatch(resetLaptopInfoState())
-      dispatch(resetEmployeeInfoState())
+      navigatePage('/error', navigate, dispatch)
       reset()
     }
     if (status === 'fulfilled') {
-      navigate('/successful')
-      localStorage.removeItem('selectedTeamID')
-      localStorage.removeItem('selectedPositionID')
-      localStorage.removeItem('storageKey')
-      dispatch(resetLaptopInfoState())
-      dispatch(resetEmployeeInfoState())
+      navigatePage('/successful', navigate, dispatch)
       reset()
     }
   }, [status, navigate, dispatch, reset])
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     if (!laptop_image.name) {
       dispatch(setUploadImageError(true))
       return

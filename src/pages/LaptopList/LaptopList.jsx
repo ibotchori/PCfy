@@ -16,7 +16,7 @@ const LaptopList = () => {
 
   return (
     <div className='min-h-screen w-full '>
-      <div className='absolute'>
+      <div className='absolute pl-8'>
         <GoBackButton path={'/'} />
       </div>
 

@@ -10,7 +10,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { EmployeeSchema } from 'helpers/validationSchema/EmployeeSchema'
+import { EmployeeSchema } from 'Schema'
 import useFormPersist from 'react-hook-form-persist'
 
 /* Redux */

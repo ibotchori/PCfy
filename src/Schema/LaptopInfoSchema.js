@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export const LaptopInfoSchema = yup.object().shape({
+const LaptopInfoSchema = yup.object().shape({
   laptop_name: yup
     .string()
     .required('ლეპტოპის სახელი სავალდებულოა.')
@@ -17,3 +17,5 @@ export const LaptopInfoSchema = yup.object().shape({
   laptop_hard_drive_type: yup.string().required(),
   laptop_state: yup.string().required(),
 })
+
+export default LaptopInfoSchema
